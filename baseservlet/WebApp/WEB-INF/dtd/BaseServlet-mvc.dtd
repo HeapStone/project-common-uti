@@ -4,10 +4,10 @@
     @version 1.0
     @since 4.2
 -->
-<!DOCTYPE baseservlet-config[
        <!ELEMENT baseservlet-config (baseservlet*)>
        <!ELEMENT baseservlet (method*)>
-		 <!ATTLIST baseservlet
+       <!ELEMENT method (#PCDATA)>
+	    <!ATTLIST baseservlet
          name CDATA #REQUIRED
          class CDATA #REQUIRED
         >
@@ -15,4 +15,3 @@
          name CDATA  #REQUIRED
          uri CDATA	#REQUIRED
         >
-]>
