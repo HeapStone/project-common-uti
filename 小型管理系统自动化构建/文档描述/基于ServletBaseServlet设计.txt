@@ -1,3 +1,18 @@
 BaseServlet设计基本构想
 实现功能：根据前台页面的请求URL在配置文件中寻找其对应的请求处理类和处理方法，找到该方法后调用该方法处理请求，如果发现URL或者对应的方法未定义则需要抛出异常。除此之外，根据子类方法的返回处理子类方法的路由跳转，如果子类方法返回字符串中含有“r:xxxx”，则表示要进行重定向处理，如果返回的仅是路由则要进行请求转发处理，如果返回的是空值则返回原页面。
 该Baseservlet继承httpservlet实现ServletCommonOperate接口，重写httpservlet的inint方法和service方法，在inint方法中有以下操作：1、读取BaseServlet-mvc.xml获取到其中配置的url和类名、方法名的对应关系并将其植入公共容器中。2、初始化系统其它的配置项参数；在service方法中主要实现以下操作：1、处理请求url根据请求的url找到其对应的类和方法。2、将请求传递给对应的方法，如果未找到则抛出异常。3、根据返回的参数决定下一步请求跳转路径。其中在ServletCommonOperate中定义了一些基本的操作包含了getUserBySeesion（HttpServletRequest request）获取当前登录人信息；responseJson（Boolean result,String rmsg,HttpServletResponse response）返回成功或者失败的json信息；responseJson(JSONObject jo,HttpServletResponse response)返回json串；forward(String path,HttpServletRequest request,HttpServletResponse response)请求转发处理；redirect(String path,HttpServletResponse response)请求重定向处理；responseHtmltext(String htmlText,HttpServletResponse response)返回html代码； responseFile(File file,String exportFileName,HttpServletResponse response)文件下载公共处理；具体参照psmc的mycontroller；
+BaseServlet-mvc.xml的格式
+<baseservlet-config>
+<baseservlet name="" class="">
+    <method name="" url=""/>
+    <method name="" url=""/>
+    <method name="" url=""/>
+    <method name="" url=""/>
+    <method name="" url=""/>
+    <method name="" url=""/>
+</baseservlet>
+    ......
+<baseservlet>
+    ......
+</baseservlet>
+</baseservlet-config>

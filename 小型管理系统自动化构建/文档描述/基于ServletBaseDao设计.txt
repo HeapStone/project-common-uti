@@ -1,1 +1,16 @@
-测试提交
+BaseDao实现功能：
+1、实现数据库的基本增、删、改、查。2、实现从配置文件读取增、删、改、查的sql，并将命名sql解析成sql并且提供事物管理。3、查询时根据xml的配置将查询数据封装到实体类中。
+BaseDao-config.xml结构如下
+<namespace name="" class="">
+<resultMap>
+    <id column="id" property="id" />
+    <result column="userName" property="userName" />
+    <result column="userAge" property="userAge" />
+    <result column="userAddress" property="userAddress" />
+    .............
+</resultMap>
+<insert id=""></insert>
+<update id=""></update>
+<delete id=""></delete>
+<query id=""></query>
+</namespace>
