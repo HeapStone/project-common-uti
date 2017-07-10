@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ 	@author: wanglei
+    @version 1.0
+    @since 4.2
+-->
+<!DOCTYPE baseservlet-config[
+       <!ELEMENT baseservlet-config (baseservlet*)>
+       <!ELEMENT baseservlet (method*)>
+		 <!ATTLIST baseservlet
+         name CDATA #REQUIRED
+         class CDATA #REQUIRED
+        >
+       <!ATTLIST method
+         name CDATA  #REQUIRED
+         uri CDATA	#REQUIRED
+        >
+]>
