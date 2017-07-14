@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<namespace name="" class="">
+<!DOCTYPE baseservlet-config SYSTEM "/WEB-INF/dtd/BaseDao-config.dtd">
+<namespace name="" class="" table="">
 <resultMap>
-    <id column="id" property="id" />
+    <id column="id" property="id">
+      <generator class="uuid"/>
+    </id>
     <result column="userName" property="userName" />
     <result column="userAge" property="userAge" />
     <result column="userAddress" property="userAddress" />
-    .............
 </resultMap>
-<insert id=""></insert>
-<update id=""></update>
-<delete id=""></delete>
-<query id=""></query>
+<sql id="" type="">
+<![CDATA[ ]]>
+</sql>
 </namespace>

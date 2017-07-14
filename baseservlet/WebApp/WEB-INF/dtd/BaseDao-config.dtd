@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ 	@author: wanglei
+    @version 1.0
+-->
+       <!ELEMENT namespace (resultMap,sql*)>
+       <!ELEMENT resultMap (id,result*)>
+       <!ELEMENT result (#PCDATA)>
+       <!ELEMENT id (generator)>
+       <!ELEMENT generator (#PCDATA)>
+       <!ELEMENT sql (#PCDATA)>
+		<!ATTLIST sql type CDATA #REQUIRED>
+		<!ATTLIST sql id CDATA #IMPLIED>
+		<!ATTLIST generator class (uuid|sequence) "uuid">
+	    <!ATTLIST namespace
+	     name CDATA #REQUIRED
+	     class CDATA #REQUIRED
+	     table CDATA #REQUIRED
+	    >
+       <!ATTLIST result
+         column CDATA  #REQUIRED
+         property CDATA	#REQUIRED
+        >
+        <!ATTLIST id
+         column CDATA  #REQUIRED
+         property CDATA	#REQUIRED
+        >

@@ -2,7 +2,6 @@
 <!-- 
  	@author: wanglei
     @version 1.0
-    @since 4.2
 -->
        <!ELEMENT baseservlet-config (baseservlet*)>
        <!ELEMENT baseservlet (method*)>
