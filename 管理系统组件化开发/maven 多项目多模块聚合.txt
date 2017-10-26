@@ -1,0 +1,38 @@
+---模块应用划分
+1、cp-aggregator 所有聚合文件的父级模块 
+2、cp-common  公共模块系统的聚合文件
+3、cp-common-core  公共模块系统的核心类
+4、cp-common-web 公共模块系统的web页面
+4、cp-common-dataInterface 公共模块系统的数据接口
+5、cp-systemmanager  --系统管理模块的父类模块用来管理系统管理模块的依赖
+6、cp-systemmanager-core  --系统管理模块的核心模块包含dao、service、model
+7、cp-systemmanager-web --系统管理模块的web模块用来提供页面展现
+8、cp-systemmanager-dataInterface --系统管理模块的数据接口，提供远程调用
+---模块应用模块划分
+1、cp-aggregator
+    --无模块，只是一个聚合的pom
+2、cp-common
+    --utils  工具类
+    --hibernate-BaseDao 数据访问层
+    --fileupload       文件上传下载
+3、cp-systemmanager
+    --组织人员管理
+        --组织机构管理
+        --用户信息管理
+        --用户职务管理
+    --系统配置管理
+        --系统信息维护
+        --系统码表维护
+        --系统菜单维护
+    --角色权限管理
+        --角色管理
+        --用户组管理
+        --授权管理
+    --用户个人信息维护
+        --用户登录
+        --用户信息修改
+        --修改密码
+        --退出
+    --在线用户管理
+        --在线用户统计
+        --在线用户移除
