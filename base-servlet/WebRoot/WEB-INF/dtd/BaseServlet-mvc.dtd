@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ 	@author: wanglei
+    @version 1.0
+-->
+       <!ELEMENT baseservlet-config (baseservlet*)>
+       <!ELEMENT baseservlet (method*)>
+       <!ELEMENT method (#PCDATA)>
+	    <!ATTLIST baseservlet
+         name CDATA #REQUIRED
+         class CDATA #REQUIRED
+        >
+       <!ATTLIST method
+         name CDATA  #REQUIRED
+         uri CDATA	#REQUIRED
+        >

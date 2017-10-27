@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE baseservlet-config SYSTEM "../WebApp/WEB-INF/dtd/BaseServlet-mvc.dtd">
+<baseservlet-config>
+<baseservlet name="" class="">
+    <method name="" uri=""/>
+    <method name="" uri=""/>
+    <method name="" uri=""/>
+    <method name="" uri=""/> 
+</baseservlet>
+</baseservlet-config>
