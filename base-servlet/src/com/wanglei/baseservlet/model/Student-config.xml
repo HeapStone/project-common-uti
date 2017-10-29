@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<namespace name="Student" class="com.wanglei.baseservlet.model.Student" table="tb_student">
+	<result property="studentUuid" column="STUDENT_UUID" type="java.lang.String" />
+	<result property="studentName" column="STUDENT_NAME" type="java.lang.String" />
+	<result property="studentClass" column="STUDENT_AGE" type="java.lang.String" />
+	<result property="studentAge" column="STUDENT_SEX" type="java.lang.Integer" />
+	<result property="studentSex" column="STUDENT_CLASS" type="java.lang.Integer" />
+	<result property="studentNum" column="STUDENT_NUM" type="java.lang.String" />
+	<result property="studentIdcardNum" column="STUDENT_IDCARD_NUM" type="java.lang.String" />
+	<result property="studentEmail" column="STUDENT_EMAIL" type="java.lang.String" />
+	<result property="studentScore" column="STUDENT_SCORE" type="double" />
+	<result property="studentBirth" column="STUDENT_BIRTH" type="java.util.Date" />
+	<result property="studentEnterDate" column="STUDENT_ENTER" type="java.sql.Timestamp" />
+</namespace>

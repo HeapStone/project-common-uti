@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<namespace name="" class="" table="">
-    <column="userName" property="userName" />
-    <column="userAge" property="userAge" />
-    <column ="userAddress" property="userAddress"/>
-</namespace>
