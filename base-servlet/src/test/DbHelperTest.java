@@ -1,7 +1,5 @@
 package test;
 
-import static org.junit.Assert.*;
-
 import java.lang.reflect.Field;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -15,7 +13,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.wanglei.baseservlet.model.Student;
+import com.wagnlei.baseserverlet.student.model.Student;
 import com.wanglei.baseservlet.utils.DbHelper;
 
 public class DbHelperTest {
@@ -76,7 +74,7 @@ public class DbHelperTest {
 			System.out.println("\t<result property=\""+f.getName()+"\""+" column=\"" +"\" type=\""+f.getType().toString().replace("class", "").trim()+"\" />");
 		}
 	}
-	@Test
+
 	public void testprintTaleCoulm() throws SQLException{
 		DatabaseMetaData dbmd = dh.getConnection().getMetaData();
 		ResultSet rs = dbmd.getTables(dh.getConnection().getCatalog(), "%","%",new String[]{"TABLE"}); 
@@ -93,9 +91,31 @@ public class DbHelperTest {
 				int digits = colRet.getInt("DECIMAL_DIGITS"); 
 				int nullable = colRet.getInt("NULLABLE"); 
 				String REMARKS  = colRet.getString("REMARKS"); 
-				System.out.println(columnName+" "+columnType+" "+datasize+" "+digits+" "+ nullable); 
+				System.out.println(columnName+" "+columnType+" "+datasize+" "+digits+" "+ nullable+""+REMARKS); 
 			}
 	}
 		
 	} 
+	
+	public void testcolumconvert(){
+		String sql = "SELECT STUDENT_UUID, STUDENT_NAME, STUDENT_AGE, STUDENT_SEX, "
+				+ "STUDENT_CLASS, STUDENT_NUM, STUDENT_IDCARD_NUM, STUDENT_EMAIL, "
+				+ "STUDENT_SCORE, STUDENT_BIRTH, STUDENT_ENTER_DATE FROM tb_student";
+		List<Map<String,Object>> result = dh.excuteQuerySql(sql, null);
+		
+		for(Map<String,Object> re:result){
+			System.out.println(re);
+			System.out.println(dh.convertTableColumnToProperty(re));
+		}
+	}
+	@Test
+	public void testQueryObjlist(){
+		String sql = "SELECT STUDENT_UUID, STUDENT_NAME, STUDENT_AGE, STUDENT_SEX, "
+				+ "STUDENT_CLASS, STUDENT_NUM, STUDENT_IDCARD_NUM, STUDENT_EMAIL, "
+				+ "STUDENT_SCORE, STUDENT_BIRTH, STUDENT_ENTER_DATE FROM tb_student";
+		List<Object> result = dh.excuteQueryListBySqlWithParams(sql, null, Student.class);
+		for(Object re:result){
+			System.out.println(re);
+		}
+	}
 }

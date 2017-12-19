@@ -11,4 +11,12 @@
 	<result property="studentScore" column="STUDENT_SCORE" type="double" />
 	<result property="studentBirth" column="STUDENT_BIRTH" type="java.util.Date" />
 	<result property="studentEnterDate" column="STUDENT_ENTER" type="java.sql.Timestamp" />
+	<sql id="getAllStudent">
+		<![CDATA[
+	        SELECT
+	             *
+	        FROM 
+	             tb_student
+	      ]]>
+	</sql>
 </namespace>

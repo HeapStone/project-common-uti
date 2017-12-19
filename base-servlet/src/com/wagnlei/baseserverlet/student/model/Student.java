@@ -1,8 +1,8 @@
-package com.wanglei.baseservlet.model;
+package com.wagnlei.baseserverlet.student.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.Date;
 
 public class Student implements Serializable {
 	

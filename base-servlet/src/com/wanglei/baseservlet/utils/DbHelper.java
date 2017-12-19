@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 /**
  * <p>Title: 获取数据连接工具的类</p>
@@ -152,18 +153,18 @@ public class DbHelper {
 	        //执行查询
 	        resultSet = pstmt.executeQuery();  
 	        ResultSetMetaData metaData = resultSet.getMetaData();  
-	        int cols_len;
-			cols_len = metaData.getColumnCount();
+	        int colsLen;
+	        colsLen = metaData.getColumnCount();
 			while (resultSet.next()) {  
 				//将数据封装到map
 	            Map<String, Object> map = new HashMap<String, Object>();  
-	            for (int i = 0; i < cols_len; i++) {  
-	                String cols_name = metaData.getColumnName(i + 1);  
-	                Object cols_value = resultSet.getObject(cols_name);  
-	                if (cols_value == null) {  
-	                    cols_value = "";  
+	            for (int i = 0; i < colsLen; i++) {  
+	                String colsName = metaData.getColumnName(i + 1);  
+	                Object colsValue = resultSet.getObject(colsName);  
+	                if (colsValue == null) {  
+	                	colsValue = "";  
 	                }  
-	                map.put(cols_name, cols_value);  
+	                map.put(colsName, colsValue);  
 	            }  
 	            list.add(map);  
 	        }  
@@ -175,6 +176,57 @@ public class DbHelper {
         return list; 
 	}
 	
+	/**
+	 * <p>Description:根据参数和sql返回一个实体类集合<p>
+	 * @param sql sql
+	 * @param params 参数
+	 * @param clazz 类的class
+	 * @return 实体类列表
+	 * @author wanglei 2017年12月16日
+	 */
+	public List<Object> excuteQueryListBySqlWithParams(String sql,List<?> params,Class<?> clazz){
+		//查询对象返回map对象
+		List<Map<String, Object>> list = this.excuteQuerySql(sql, params);
+		return getobjListByMaps(list,clazz);
+	}
+	/**
+	 * <p>Description:根据参数和sql返回一个实体类集合<p>
+	 * @param sql sql
+	 * @param clazz 类的class
+	 * @return 实体类列表
+	 * @author wanglei 2017年12月16日
+	 */
+	public List<Object> excuteQueryListBySql(String sql,Class<?> clazz){
+		//查询对象返回map对象
+		List<Map<String, Object>> list = this.excuteQuerySql(sql, null);
+		return getobjListByMaps(list,clazz);
+	}
+	/**
+	 * <p>Description:根据sql和参数返回一个实体类<p>
+	 * @param sql sql
+	 * @param params 参数
+	 * @param clazz 类的class
+	 * @return 实体类
+	 * @author wanglei 2017年12月16日
+	 */
+	public Object excuteQuerySql(String sql,List<?> params,Class<?> clazz){
+		List<Object> results = new ArrayList<Object>();
+		results=excuteQueryListBySqlWithParams( sql, params, clazz);
+		return results.size()>0?results.get(0):null;
+	}
+	public List<Map<String,Object>> excuteQuerySql(String sql,List<?> params,boolean isConvert){
+		List<Map<String,Object>> results = new ArrayList<Map<String,Object>>();
+		List<Map<String,Object>> noConvertResults =excuteQuerySql( sql, params);
+		if(isConvert){
+			 for(Map<String,Object> obj :noConvertResults){
+				 results.add(this.convertTableColumnToProperty(obj));
+			 }
+			
+		}else{
+			results.addAll(noConvertResults);
+		}
+		return results;
+	}
 
     /**
      * <p>Description:释放数据库连接资源<p>
@@ -203,5 +255,39 @@ public class DbHelper {
             }  
         }  
     }  
-  
+  /**
+ * <p>Description:将查询的map中的表字段转换成实体类属性<p>
+ * @param argmap 查询结果集
+ * @return 转后之后map
+ * @author wanglei 2017年12月17日
+ */
+public Map<String,Object> convertTableColumnToProperty(Map<String,Object> argmap){
+	  Map<String,Object>  resmap = new HashMap<>();
+	  if(null!= argmap){
+		  Set<String> keys = argmap.keySet();
+		  for(String key :keys){
+			  resmap.put(ColumnToPropertyUtil.camelName(key), argmap.get(key));
+		  }
+	  }
+	  return resmap;
+  }
+/**
+ * <p>Description:将map结果集转换成实体类结果集<p>
+ * @param list 结果集合
+ * @param clazz 实体类的class
+ * @return
+ * @author wanglei 2017年12月17日
+ */
+private  List<Object> getobjListByMaps(List<Map<String, Object>> list,Class<?> clazz){
+	List<Object> results = new ArrayList<Object>();
+	if(null!=list){
+		//进行对象封装
+		//将实体属性和值封装到map集合中并返回实体类
+		for(Map<String,Object> re:list){
+			Object reobj= ReflectUtils.setBeanProperty(this.convertTableColumnToProperty(re), clazz);
+			results.add(reobj);
+		}
+	}
+	return results;
+}
 }
