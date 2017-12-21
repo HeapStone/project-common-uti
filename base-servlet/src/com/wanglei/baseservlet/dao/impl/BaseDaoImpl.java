@@ -206,17 +206,16 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return dh.excuteQuerySql(sql, params,isConvert);
 	}
 	@Override
-	public void add(String sql, List<Object>  args) {
-		dh.excuteSqlByPrepareStatement(sql, args);
+	public void add(T t) {
+		dh.add(t);
 	}
 	@Override
-	public void update(String sql, List<Object>  args) {
-		dh.excuteSqlByPrepareStatement(sql, args);
+	public void update(T t, String pk) {
+     dh.update(t, pk);
 	}
 	@Override
-	public void delete(String sql, List<Object> args) {
-		dh.excuteSqlByPrepareStatement(sql, args);
-		
+	public void delete(T t ,String pk) {
+		dh.delete(t, pk);		
 	}
 	@Override
 	public T findByUuid(String sql, String id) {

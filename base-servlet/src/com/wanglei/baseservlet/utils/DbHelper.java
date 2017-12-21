@@ -7,12 +7,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.wanglei.baseservlet.exception.BusinessException;
 
 /**
  * <p>Title: 获取数据连接工具的类</p>
@@ -120,6 +125,29 @@ public class DbHelper {
 				}
 			}
 			excuNum = pstmt.executeUpdate(); 
+		} catch (Exception e) {
+			throw new RuntimeException("执行预处理sql异常！", e); 
+		}finally{
+			releaseConn() ;
+		}
+		
+		return excuNum ;
+	}
+	/**
+	 * <p>Description:执行sql语句<p>
+	 * @param sql sql 语句
+	 * @return
+	 * @author wanglei 2017年12月21日
+	 */
+	public long excuteSqlByStatement(String sql){
+		Statement stmt = null;
+		if(null == connection){
+			this.getConnection();
+		}
+		long excuNum = -1;
+		try {
+			stmt = connection.createStatement();
+			excuNum = stmt.executeUpdate(sql); 
 		} catch (Exception e) {
 			throw new RuntimeException("执行预处理sql异常！", e); 
 		}finally{
@@ -290,4 +318,119 @@ private  List<Object> getobjListByMaps(List<Map<String, Object>> list,Class<?> c
 	}
 	return results;
 }
+/**
+ * <p>Description:向数据库添加实体类<p>
+ * @param obj 实体bean
+ * @author wanglei 2017年12月21日
+ */
+public void add(Object obj){
+	String sql = getInsertSqlByBean(obj);
+	System.out.println(sql);
+	this.excuteSqlByStatement(sql);
+	
 }
+/**
+ * <p>Description:以实体类更新数据库数据<p>
+ * @param obj 实体类
+ * @param pk 主键名称
+ * @author wanglei 2017年12月21日
+ */
+public void update(Object obj,String pk){
+	String sql = this.getUpdateSqlByBeanAndPk(obj, pk);
+	System.out.println(sql);
+	this.excuteSqlByStatement(sql);
+}
+public void delete(Object obj,String pk){
+	String sql = this.getDebleteSqlByBeanAndPk(obj, pk);
+	System.out.println(sql);
+	this.excuteSqlByStatement(sql);
+}
+/**
+ * <p>Description:根据实体类获取新增语句<p>
+ * @param obj 实体类
+ * @return 新增sql
+ * @author wanglei 2017年12月21日
+ */
+public String getInsertSqlByBean(Object obj){
+	StringBuffer sqlbf = new StringBuffer("INSERT INTO ");
+	sqlbf.append(ColumnToPropertyUtil.getTableNameByBeanName(obj.getClass())+" ( ");
+	Map<String,Object> tablecoul =  ReflectUtils.getBeanProperty(obj);
+	if(tablecoul == null) throw new BusinessException("类的属性为空！不能插入!");
+	Set<String> keys = tablecoul.keySet();
+	int i = 0;
+	for(String key:keys){
+		i ++;
+		sqlbf.append(ColumnToPropertyUtil.underscoreName(key));
+		if(i<=keys.size()-1){
+			sqlbf.append(",");
+		}
+	}
+	int j = 0;
+	sqlbf.append(" ) values( ");
+	for(String key:keys){
+		j++;
+		sqlbf.append("'"+tablecoul.get(key)+"'");
+		if(j<=keys.size()-1){
+			sqlbf.append(",");
+		}
+	}
+	sqlbf.append(")");
+	return sqlbf.toString() ;
+}
+/**
+ * <p>Description:根据实体类和主键名获取更新单表的sql<p>
+ * @param obj 实体类
+ * @param pk 主键名
+ * @return
+ * @author wanglei 2017年12月21日
+ */
+public String getUpdateSqlByBeanAndPk(Object obj,String pk){
+	StringBuffer sqlbf = new StringBuffer("UPDATE ");
+	sqlbf.append(ColumnToPropertyUtil.getTableNameByBeanName(obj.getClass())+" SET ");
+	Map<String,Object> tablecoul =  ReflectUtils.getBeanProperty(obj);
+	if(tablecoul == null) throw new BusinessException("类的属性为空！不能更新!");
+	if(StringUtils.isBlank(pk))throw new BusinessException("主键名称不能为空!");
+	Set<String> keys = tablecoul.keySet();
+	int i = 0;
+	for(String key:keys){
+		i++;
+		if(null!=tablecoul.get(key)){
+			sqlbf.append(ColumnToPropertyUtil.underscoreName(key)+"= '"+tablecoul.get(key)+"'");
+			if(i<=keys.size()-1){
+				sqlbf.append(",");
+			}
+		}
+	}
+	Object pkvalue = tablecoul.get(ColumnToPropertyUtil.camelName(pk));
+	if(null!=pkvalue){
+		sqlbf.append(" WHERE "+pk +"= '"+ pkvalue+"' ");
+	}else{
+		throw new BusinessException("主键不能为空！不能更新!");
+	}
+	return sqlbf.toString();
+}
+/**
+ * <p>Description:根据主键名和实体类获取删除sql<p>
+ * @param obj 实体类
+ * @param pk 主键名
+ * @return 删除sql
+ * @author wanglei 2017年12月22日
+ */
+public String getDebleteSqlByBeanAndPk(Object obj ,String pk){
+	StringBuffer sqlbf = new StringBuffer("DELETE FROM ");
+	sqlbf.append(ColumnToPropertyUtil.getTableNameByBeanName(obj.getClass()));
+	Map<String,Object> tablecoul =  ReflectUtils.getBeanProperty(obj);
+	if(tablecoul == null) throw new BusinessException("类的属性为空！不能更新!");
+	Object pkvalue = tablecoul.get(ColumnToPropertyUtil.camelName(pk));
+	if(StringUtils.isBlank(pk))throw new BusinessException("主键名称不能为空!");
+	if(null!=pkvalue){
+		sqlbf.append(" WHERE "+pk +"= '"+ pkvalue+"' ");
+	}else{
+		throw new BusinessException("主键值为空！不能删除!");
+	}
+	return sqlbf.toString();
+}
+
+}
+
+

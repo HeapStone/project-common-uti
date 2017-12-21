@@ -1,5 +1,7 @@
 package com.wanglei.baseservlet.utils;
 
+import org.apache.commons.lang.StringUtils;
+
 public class ColumnToPropertyUtil {
 	/**
 	 * 将驼峰式命名的字符串转换为下划线大写方式。如果转换前的驼峰式命名的字符串为空，则返回空字符串。</br>
@@ -61,5 +63,26 @@ public class ColumnToPropertyUtil {
 	    }
 	    return result.toString();
 	}
+   /**
+ * <p>Description:根据实体类的名字获取表名<p>
+ * @return
+ * @author wanglei 2017年12月20日
+ */
+public static String getTableNameByBeanName(Class<?> clazz){
+	if(null == clazz) return null;
+	String tableName = underscoreName("tb"+clazz.getSimpleName());
+	return StringUtils.isBlank(tableName)?null:tableName;
+	   
+   }
+/**
+ * <p>Description:根据表名获取实体类名称<p>
+ * @param tablename 表名
+ * @return
+ * @author wanglei 2017年12月20日
+ */
+public static String getBeanNameByTableName(String tablename){
+	String beanName = camelName(tablename);
+	return StringUtils.isBlank(beanName)?null:beanName.substring(2, beanName.length());
+   }
 
 }
