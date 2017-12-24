@@ -30,6 +30,9 @@ public class Pager<T> {
 	 * 分页的数据
 	 */
 	private List<T> datas;
+	/**
+	 * 查询参数-如果有语句中有like 请 在参数中加上% 如params.put("xxx","%XXXX%");
+	 */
 	private Map<String,String> params;
 	public Map<String, String> getParams() {
 		return params;
@@ -73,6 +76,12 @@ public class Pager<T> {
 
 	public Pager() {
 		super();
+	}
+
+	@Override
+	public String toString() {
+		return "Pager [size=" + size + ", offset=" + offset + ", total="
+				+ total + ", datas=" + datas + ", params=" + params + "]";
 	}
 
 }

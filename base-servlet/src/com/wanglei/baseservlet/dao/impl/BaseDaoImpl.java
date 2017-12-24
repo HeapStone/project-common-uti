@@ -4,11 +4,15 @@ import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.wanglei.baseservlet.dao.BaseDao;
+import com.wanglei.baseservlet.exception.BusinessException;
 import com.wanglei.baseservlet.model.Pager;
 import com.wanglei.baseservlet.model.SystemContext;
+import com.wanglei.baseservlet.utils.BuildSqlUtil;
+import com.wanglei.baseservlet.utils.ColumnToPropertyUtil;
 import com.wanglei.baseservlet.utils.DbHelper;
 
 
@@ -19,14 +23,13 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	 */
 	private Class<T> clz;
 	@SuppressWarnings("unchecked")
-	public Class<T> getClz(){
+	private Class<T> getClz(){
+		//解决并发问题
+		synchronized (BaseDaoImpl.class) {
 		if(clz==null) {
-			synchronized (DbHelper.class) {
-				//该同步代码块是为了解决多线程状态下 获取单例对象为null的问题
-				//获取泛型的Class对象
-				clz = ((Class<T>)(((ParameterizedType)(this.getClass().getGenericSuperclass())).getActualTypeArguments()[0]));
-			}
-		
+			//获取泛型的Class对象
+		clz = ((Class<T>)(((ParameterizedType)(this.getClass().getGenericSuperclass())).getActualTypeArguments()[0]));
+		}
 		}
 		return clz;
 	}
@@ -41,6 +44,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		String order = SystemContext.getOrder();
 		String sort = SystemContext.getSort();
 		if(null != sort && !"".equals(sort.trim())){
+			order = ColumnToPropertyUtil.underscoreName(order);
 			sql+=" order by "+order;
 		if( !"desc".equals(sort)) sql+=" asc";
 		else sql += " desc";
@@ -56,8 +60,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	 * @author wanglei 2017年12月16日
 	 */
 	private String getCountSql(String sql,boolean isFetch){
-		String endstr=sql.substring(sql.indexOf("from"));
-		String c = "select count(*) as total" +endstr;
+		String endstr=sql.substring(StringUtils.indexOfIgnoreCase(sql, "from"));
+		endstr=endstr.replace(" LIMIT ? , ? ", "");
+		String c = "select count(*) as total " +endstr;
 		if(isFetch){ //是否抓取
 			c.replaceAll("fetch", "");
 		}
@@ -70,32 +75,60 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	 * @return
 	 * @author wanglei 2017年12月16日
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
-	public Pager<T> findPagerBySql(String sql,Pager<T> pager ){
-		sql = inintSort(sql);
-		pager.setDatas((List<T>) dh.excuteQueryListBySqlWithParams(sql, this.getPagerProgramsByPager(pager), this.getClz()));
-		long total = Long.parseLong(this.excuteQuerySql(getCountSql(sql,true),null,false).get(0).get("total").toString());
-		pager.setTotal(total);
+	public Pager<T> findPager(Pager<T> pager){
+		Map<String ,Object> slqAndprams = BuildSqlUtil.getPagerProgramsAndSqlByPager(pager,this.getClz());
+		if(null!=slqAndprams && slqAndprams.size()>0){
+			String sql;
+			Object  objp= slqAndprams.get("prams");
+			Object npObj = slqAndprams.get("noPagePrams");
+			List<Object> params = null; 
+			List<Object> noPagePrams = null;
+			if(null != objp){
+				params=(List<Object>)objp;
+			}
+			if(null != npObj){
+				noPagePrams=(List<Object>)npObj;
+			}
+			if( null==slqAndprams.get("sql")) throw new BusinessException("获取sql语句异常!");
+			sql = slqAndprams.get("sql").toString();
+			if( StringUtils.isBlank(sql)) throw new BusinessException("获取sql语句异常!");
+			sql = inintSort(sql);
+			pager.setDatas((List<T>) dh.excuteQueryListBySqlWithParams(sql, params, this.getClz()));
+			long total = Long.parseLong(this.excuteQuerySql(getCountSql(sql,true),noPagePrams).get(0).get("total").toString());
+			pager.setTotal(total);
+		}else{
+			throw new BusinessException("获取sql语句异常!");
+		}
 		return pager;
 	}
-	/**
-	 * <p>Description:根据分页对象获取参数信息<p>
-	 * @param pager
-	 * @return
-	 * @author wanglei 2017年12月19日
-	 */
-	private List<Object > getPagerProgramsByPager(Pager<T> pager){
-		List<Object > prams = new ArrayList<>();
-		Map<String,String > pram = pager.getParams();
-		if(null!=pram && pram.size()>0){
-			Set<String> keys = pram.keySet();
-			for(String key: keys){
-				prams.add(pram.get(key));
+	@SuppressWarnings("unchecked")
+	@Override
+	public Pager<Object> findPagerByPreSqlWithParams(String sql, Pager<Object> pager,Class<?> clazz) {
+		Map<String ,Object> slqAndprams = BuildSqlUtil.getPagerProgramsByPagerAndSql(pager,sql);
+		if(null!=slqAndprams && slqAndprams.size()>0){
+			Object  objp= slqAndprams.get("prams");
+			Object npObj = slqAndprams.get("noPagePrams");
+			List<Object> params = null; 
+			List<Object> noPagePrams = null;
+			if(null != objp){
+				params=(List<Object>)objp;
 			}
+			if(null != npObj){
+				noPagePrams=(List<Object>)npObj;
+			}
+			if( null==slqAndprams.get("sql")) throw new BusinessException("获取sql语句异常!");
+			sql = slqAndprams.get("sql").toString();
+			if( StringUtils.isBlank(sql)) throw new BusinessException("获取sql语句异常!");
+			sql = inintSort(sql);
+			pager.setDatas(dh.excuteQueryListBySqlWithParams(sql, params, this.getClz()));
+			long total = Long.parseLong(this.excuteQuerySql(getCountSql(sql,true),noPagePrams).get(0).get("total").toString());
+			pager.setTotal(total);
+		}else{
+			throw new BusinessException("获取sql语句异常!");
 		}
-		prams.add(pager.getOffset());
-		prams.add(pager.getSize());
-		return prams;
+		return pager;
 	}
 	/**
 	 * <p>Description:查询list结果<p>
@@ -105,6 +138,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	 * @author wanglei 2017年12月16日
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public List<T> findListBySqlWithParams(String sql,Object[] args){
 		List<T> results = new ArrayList<T>();
 		sql = inintSort(sql);
@@ -128,6 +162,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	 * @return
 	 * @author wanglei 2017年12月16日
 	 */
+	@Override
 	public List<T> findListBySqlWithParam(String sql,Object arg){
 		List<T> results = new ArrayList<T>();
 		sql = inintSort(sql);
@@ -140,6 +175,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	 * @return 对象list结果集
 	 * @author wanglei 2017年12月16日
 	 */
+	@Override
 	public List<T> listBysql(String sql){
 		List<T> results = new ArrayList<T>();
 		sql = inintSort(sql);
@@ -153,6 +189,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	 * @return  
 	 * @author wanglei 2017年12月16日
 	 */
+	@Override
 	public List<Object> queryListBySqlWithParams(String sql,Object[] args,Class<?> claz){
 		List<Object> results = new ArrayList<Object>();
 		sql = inintSort(sql);
@@ -175,6 +212,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	 * @return
 	 * @author wanglei 2017年12月16日
 	 */
+	@Override
 	public List<Object>queryListBySqlWithParam(String sql,Object arg,Class<?> claz){
 		List<Object> results = new ArrayList<Object>();
 		sql = inintSort(sql);
@@ -187,13 +225,24 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	 * @return
 	 * @author wanglei 2017年12月16日
 	 */
+	@Override
 	public List<Object>queryListBySql(String sql,Class<?> claz){
 		List<Object> results = new ArrayList<Object>();
 		sql = inintSort(sql);
 		results = this.queryListBySqlWithParams(sql, null, claz);
 		return results;
 	}
-
+	/**
+	 * <p>Description:根据预处理语句和参数返回一个map结果集<p>
+	 * @param sql SQL语句
+	 * @param params 参数
+	 * @return
+	 * @author wanglei 2017年12月23日
+	 */
+	@Override
+	public List<Map<String,Object>> excuteQuerySql(String sql,List<?> params){
+		return dh.excuteQuerySql(sql, params);
+	}
 	/**
 	 * <p>Description:返回一个map类型结果集<p>
 	 * @param sql sql 
@@ -202,6 +251,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	 * @return
 	 * @author wanglei 2017年12月18日
 	 */
+	@Override
 	public List<Map<String,Object>> excuteQuerySql(String sql,List<Object> params,boolean isConvert){
 		return dh.excuteQuerySql(sql, params,isConvert);
 	}
@@ -227,4 +277,76 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	public T findByUuid(String sql, Integer id) {
 		return findByUuid(sql, null!=id ?String.valueOf(id):"");
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public T load(T t,String pk) {
+		return (T)dh.load(t, pk);
+	}
+	/**
+	 * <p>Description:根据sql和参数添加<p>
+	 * @param sql SQL语句
+	 * @param args 参数
+	 * @author wanglei 2017年12月23日
+	 */
+	@Override
+	public void add(String sql ,List<Object> args){
+		dh.excuteSqlByPrepareStatement(sql, args);
+	}
+	/**
+	 * <p>Description:根据SQL和添加删除<p>
+	 * @param sql 
+	 * @param args
+	 * @author wanglei 2017年12月23日
+	 */
+	@Override
+	public void delete (String sql ,List<Object> args){
+		dh.excuteSqlByPrepareStatement(sql, args);
+		
+	}
+	/**
+	 * <p>Description:根据SQL语句更新<p>
+	 * @param sql sql语句
+	 * @param args 参数
+	 * @author wanglei 2017年12月23日
+	 */
+	@Override
+	public void update (String sql, List<Object> args){
+		dh.excuteSqlByPrepareStatement(sql, args);
+	}
+	public void excuteSql(){
+		
+	}
+	@Override
+	public void excutePreSql(String sql, List<Object> prams) {
+		dh.excuteSqlByPrepareStatement(sql, prams);
+		
+	}
+	@Override
+	public void excuteSql(String sql) {
+		dh.excuteSqlByStatement(sql);
+	}
+	@Override
+	public void batchAdd(List<T> objs) {
+		dh.batchAdd(objs);
+		
+	}
+	@Override
+	public void batchDelete(List<T> objs, String pk) {
+		dh.batchDelete(objs,pk);
+		
+	}
+	@Override
+	public void batchUpdate(List<T> objs, String pk) {
+		dh.batchUpdate(objs, pk);
+		
+	}
+	@Override
+	public void bacthExcutePreSql(String sql, List<List<Object>> batchprams) {
+		dh.bacthExcutePreSql(sql, batchprams);
+	}
+	@Override
+	public void bacthExceteSql(List<String> sqls) {
+		dh.batchExcuteSqlByStatement(sqls);
+	}
+	
 }

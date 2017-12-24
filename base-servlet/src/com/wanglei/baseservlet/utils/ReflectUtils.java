@@ -137,10 +137,10 @@ public static Object setBeanProperty (Map<String,Object> values,Class<?> clazz )
  */
 private static Object convertProperType(String methodType,Object ob){
 	 if( ob == null )return null;
-	System.out.println(methodType);
+	//System.out.println(methodType);
 	if(StringUtils.isBlank(methodType)) return null;
 	methodType = methodType.replace("class", "").trim();
-	System.out.println(methodType);
+	//System.out.println(methodType);
 	if( "java.math.BigDecimal".equalsIgnoreCase(methodType)){
         try {
             return new BigDecimal(ob.toString());
