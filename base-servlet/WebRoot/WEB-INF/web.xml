@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>base-servlet</display-name>
+  <servlet>
+    <servlet-name>BaseServlet</servlet-name>
+    <servlet-class>com.wanglei.baseservlet.servlet.BaseServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>BaseServlet</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <servlet-name>StudentServlet</servlet-name>
+    <servlet-class>com.wagnlei.baseserverlet.student.servelet.StudentServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>StudentServlet</servlet-name>
+    <url-pattern>/StudentServlet</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
