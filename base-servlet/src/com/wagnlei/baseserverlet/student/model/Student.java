@@ -1,12 +1,12 @@
 package com.wagnlei.baseserverlet.student.model;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
 import java.sql.Date;
+import java.sql.Timestamp;
 
-public class Student implements Serializable {
-	
-	private static final long serialVersionUID = -3168774581956018935L;
+import com.wanglei.baseservlet.model.Model;
+
+public class Student extends Model  {
+	private static final long serialVersionUID = 7546363753749129952L;
 	/**
 	 * 学生id
 	 */

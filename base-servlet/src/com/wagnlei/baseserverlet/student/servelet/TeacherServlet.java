@@ -12,4 +12,5 @@ public class TeacherServlet extends BaseServlet {
 	public String add(HttpServletRequest request, HttpServletResponse response)throws IOException,ServletException{
 		return "json:"+ "{\"name\":\"tea\",\"type\":\"老师\"}";
 	}
+	
 }

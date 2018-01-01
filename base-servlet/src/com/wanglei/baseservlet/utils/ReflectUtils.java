@@ -5,7 +5,9 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -39,6 +41,22 @@ public class ReflectUtils {
 		   }
 		   return fields;
   }
+	/**
+	 * <p>Description:获取实体类的属性列表<p>
+	 * @param clazz
+	 * @return
+	 * @author wanglei 2018年1月1日
+	 */
+	public static List<String> getClassFiledName(Class<?> clazz){
+		List<String> fieldsnamelist = new ArrayList<>();
+		   if(null != clazz){
+			   Field [] fields  = getClassFileds(clazz);
+			   for(Field field: fields){
+				   fieldsnamelist.add(field.getName());
+			   }
+		   }
+		   return fieldsnamelist;
+}
    /**
  * <p>Description:返回类的所有方法<p>
  * @param clazz 类的Class
@@ -112,7 +130,7 @@ public static Object setBeanProperty (Map<String,Object> values,Class<?> clazz )
 					if(null!=argsClass && argsClass.length>0){
 						//类型转换
 						//调用set方法赋值
-						method.invoke(obj, new Object[]{convertProperType(argsClass[0].toString(),values.get(key).toString())});
+						method.invoke(obj, new Object[]{convertProperType(argsClass[0].getName(),values.get(key))});
 					}else{
 						throw new BusinessException(clazz.getName()+ "属性["+key+"] setter方法参数类型不匹配！");
 					}
@@ -185,6 +203,7 @@ private static Object convertProperType(String methodType,Object ob){
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
     }else if( "java.sql.Date".equalsIgnoreCase(methodType)){
         try {
             return DateUtil.getStringSqlDate(ob.toString());
@@ -192,6 +211,20 @@ private static Object convertProperType(String methodType,Object ob){
             e.printStackTrace();
         }
     }
+    else if( "java.util.Map".equalsIgnoreCase(methodType)){
+        try {
+            return JsonHelper.toMap(ob.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }else if( "int".equalsIgnoreCase(methodType)){
+        try {
+            return Integer.parseInt(ob.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+      }
+	
     return null;
   }
 public static Map<String,Object> getBeanProperty(Object obj){

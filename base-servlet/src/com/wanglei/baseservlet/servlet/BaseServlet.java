@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,6 +35,7 @@ import com.wanglei.baseservlet.model.UploadModel;
 import com.wanglei.baseservlet.model.View;
 import com.wanglei.baseservlet.utils.ExcelUtil;
 import com.wanglei.baseservlet.utils.JsonHelper;
+import com.wanglei.baseservlet.utils.ReflectUtils;
 
 /**
  * <p>Title: 通过这个baseServlet统一处理请求</p>
@@ -421,6 +423,38 @@ public class BaseServlet extends HttpServlet {
         response.setHeader("Content-type", "text/html;charset="+Encoding);
         response.setCharacterEncoding(Encoding);  
         response.sendRedirect(path);
+    }
+    /**
+     * <p>Description:封装request请求到实体类中<p>
+     * @param request 请求
+     * @param clazz 类的Class
+     * @return
+     * @author wanglei 2018年1月1日
+     */
+    protected Object initBean(HttpServletRequest request,Class<?> clazz){
+    	Object obj = null;
+    	//获取所有参数
+    	Map<String,String[]> params = request.getParameterMap() ;
+    	Set<String> keys = params.keySet();
+    	Map<String,Object> beasValues= new HashMap<>(); 
+    	for(String key :keys){
+    		System.out.println("key:"+key+":");
+    		//获取实体类的属性值
+    		List<String> beanFiledNames = ReflectUtils.getClassFiledName(clazz);
+    		//如果和实体类的名称相同则进行赋值，不相同不管
+    		if(beanFiledNames.contains(key)){
+    			String[] valeus = params.get(key);
+    			//给单一值得属性赋值
+    			if(valeus!=null && valeus.length==1){
+        			beasValues.put(key, valeus[0]);
+    			}
+    			for(String valeu: valeus){
+    				System.out.println(valeu);
+    			}
+    		}
+    	}
+    	obj = ReflectUtils.setBeanProperty(beasValues, clazz);
+    	return obj;
     }
 	@Override
     public void init(ServletConfig config) throws ServletException {

@@ -74,4 +74,11 @@ public class StudentServlet extends BaseServlet {
 			e.printStackTrace();
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public void findStudent(){
+		//Student stu = (Student) initBean(request(), Student.class);
+		Pager<Student> pager =  (Pager<Student>) initBean(request(), Pager.class);
+		System.out.println(pager);
+	}
 }
