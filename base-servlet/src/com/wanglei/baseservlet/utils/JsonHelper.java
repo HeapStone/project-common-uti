@@ -73,6 +73,18 @@ public class JsonHelper {
         return new JSONObject(toMap(bean));
 
     }
+    /**
+     * <p>Description:将map转换成json<p>
+     * @param map map
+     * @return
+     * @author wanglei 2017年12月31日
+     */
+    @SuppressWarnings("rawtypes")
+	public static JSONObject mapToJSON(Map map) {
+
+        return new JSONObject(map);
+
+    }
 
     /**
      * 将Map转换成Javabean

@@ -1,0 +1,6 @@
+com.wanglei.baseservlet.dao
+com.wanglei.baseservlet.dao.impl
+com.wanglei.baseservlet.exception
+com.wanglei.baseservlet.model
+com.wanglei.baseservlet.servlet
+com.wanglei.baseservlet.utils

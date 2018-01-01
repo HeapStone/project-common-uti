@@ -1,8 +1,6 @@
 package com.wanglei.baseservlet.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class View {
@@ -40,7 +38,7 @@ public View (String url){
  * @author wanglei 2017年12月27日
  */
 public void bind(String key,Object obj){
-	param.put(url, obj);
+	param.put(key, obj);
 }
 
 /**
