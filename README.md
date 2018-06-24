@@ -1,2 +1,2 @@
-# ProjectAutoBuild
-代码自动生成工具
+# project-common-util
+系统代码公共插件工具
