@@ -6,7 +6,7 @@ package generator.tool.model.config;
  *
  * @author <a href="mailTo:bingxuewulei@outlook.com">wanglei</a>
  * @version 1.0
- * @history: Created by wanglei on  2018/7/30
+ * @history: Created by wanglei on  2018/10/13
  */
-public class DomainCodeConfig extends BaseCodeConfig {
+public class ControllerCodeConfig extends BaseCodeConfig{
 }

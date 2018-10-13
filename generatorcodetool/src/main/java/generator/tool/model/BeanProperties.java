@@ -26,6 +26,7 @@ public class BeanProperties {
 	 * 属性名首字母大写
 	 */
 	private String propertNameUpCase;
+	private String jdbcType;
 	public String getPropertType() {
 		return propertType;
 	}
@@ -59,5 +60,12 @@ public class BeanProperties {
 	public BeanProperties() {
 		super();
 	}
-	
+
+	public String getJdbcType() {
+		return jdbcType;
+	}
+
+	public void setJdbcType(String jdbcType) {
+		this.jdbcType = jdbcType;
+	}
 }

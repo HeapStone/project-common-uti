@@ -94,6 +94,7 @@ public class MybatisDomainData extends AbstractCodeData {
                 beanProperties.setPropertComment(tableColumn.getColumnRmark());
                 beanProperties.setPropertType(ColumnToPropertyUtil.getBenaPropertiesTypeByTableColumn(tableColumn.getColumnType()));
                 beanProperties.setPropertNameUpCase(StringUtils.capitalize(columnName));
+                beanProperties.setJdbcType(tableColumn.getColumnType());
                 beanPropertieses.add(beanProperties);
             }
         }

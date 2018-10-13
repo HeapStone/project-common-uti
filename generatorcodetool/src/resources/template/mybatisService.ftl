@@ -3,6 +3,11 @@ package ${Paramss.packageNameStr};
 import java.util.Map;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import ${Paramss.importDominPackageStr};
+/**
+** 注意这是spring注入配置文件，请复制到注入配置文件后删除
+**	<bean id="${Paramss.serviceName ?uncap_first}" class="${Paramss.packageNameStr}.impl.${Paramss.serviceName}Impl" />
+**
+**/
 <#if Paramss.beanContent!="">
     /*
      *${Paramss.beanContent}
