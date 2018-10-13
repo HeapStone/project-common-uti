@@ -65,10 +65,9 @@ public class CommonConstants {
     public static final String serviceName = "serviceName";
     public static final String addMethodName = "addMethodName";
     public static final String deleteMethodName = "deleteMethodName";
-    public static final String updateMethodName = "updateMethodName";
+    public static final String updateMethodName = "updateMethodNametableColumn";
     public static final String findPrimarkeyMethodName = "findPrimarkeyMethodName";
     public static final String findPageMethodName = "findPageMethodName";
-
 
 
 

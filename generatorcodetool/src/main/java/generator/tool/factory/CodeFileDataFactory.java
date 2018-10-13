@@ -43,7 +43,7 @@ public class CodeFileDataFactory {
         }
         //mybatis配置文件
         if(CommonConstants.CODE_TYPE_MYBATIS.equals(mapperCfg.getCodeType())&&type.equals(CommonConstants.MAPPER)){
-            return  new MybatisMapperData();
+           return  new MybatisMapperData();
         }
         //hibernate配置文件
         if(CommonConstants.CODE_TYPE_HIBERNATE.equals(mapperCfg.getCodeType())&&type.equals(CommonConstants.MAPPER)){
