@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * dao代码模型数据
  */
-public class MybatisDaoCodeData extends AbstractCodeData {
+public class MybatisDaoCodeData implements AbstractCodeData {
 
     /**
      * Default constructor

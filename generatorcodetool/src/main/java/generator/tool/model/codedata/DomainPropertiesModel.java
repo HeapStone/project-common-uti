@@ -1,4 +1,4 @@
-package generator.tool.model;
+package generator.tool.model.codedata;
 
 
 /**
@@ -9,7 +9,7 @@ package generator.tool.model;
  * @history:
  * Created by wanglei 2018年1月21日
  */
-public class BeanProperties {
+public class DomainPropertiesModel  extends AbstractCodeDataModel{
 	/**
 	 * 属性类型
 	 */
@@ -54,10 +54,10 @@ public class BeanProperties {
 	}
 	@Override
 	public String toString() {
-		return "BeanProperties [propertType=" + propertType + ", propertName="
+		return "DomainPropertiesModel [propertType=" + propertType + ", propertName="
 				+ propertName + ", propertComment=" + propertComment + "]";
 	}
-	public BeanProperties() {
+	public DomainPropertiesModel() {
 		super();
 	}
 

@@ -1,13 +1,10 @@
 package generator.tool.factory;
 
 import generator.tool.codedata.*;
-import generator.tool.codefile.AbstractCodeFile;
 import generator.tool.constants.CommonConstants;
 import generator.tool.model.config.BaseCodeConfig;
 import generator.tool.model.config.CodeFileCfg;
 import generator.tool.model.config.CommonConfig;
-
-import java.util.List;
 
 /**
  * 根据架构获取生成文件的数据类型

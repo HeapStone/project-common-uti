@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * JSP页面数据
  */
-public class JspData extends AbstractCodeData {
+public class JspData implements AbstractCodeData {
 
     /**
      * Default constructor

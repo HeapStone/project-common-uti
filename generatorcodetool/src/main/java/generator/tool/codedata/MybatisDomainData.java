@@ -2,8 +2,8 @@ package generator.tool.codedata;
 
 import generator.tool.constants.CommonConstants;
 import generator.tool.factory.SystemContext;
-import generator.tool.model.BeanModel;
-import generator.tool.model.BeanProperties;
+import generator.tool.model.codedata.DomainCodeDataModel;
+import generator.tool.model.codedata.DomainPropertiesModel;
 import generator.tool.model.TableBean;
 import generator.tool.model.TableColumn;
 import generator.tool.model.config.CodeFileCfg;
@@ -20,8 +20,8 @@ import java.util.List;
 /**
  * Mybatis实体类数据
  */
-public class MybatisDomainData extends AbstractCodeData {
-   private  List<BeanModel> beanModels  = new ArrayList<>();
+public class MybatisDomainData implements AbstractCodeData {
+   private  List<DomainCodeDataModel> beanModels  = new ArrayList<>();
     /**
      * Default constructor
      */
@@ -36,7 +36,7 @@ public class MybatisDomainData extends AbstractCodeData {
         if(tableBeans.size()>0){
             for(TableBean table :tableBeans) {
                 //如果指定表格名为空则默认生成全部的属性
-                BeanModel beanModel = new BeanModel ();
+                DomainCodeDataModel beanModel = new DomainCodeDataModel();
                 List<TableColumnNameConfigs> inittableColumns = null;
                 String domainCodeFileName =null;
                 //找到要指定要生成列的数据
@@ -64,9 +64,9 @@ public class MybatisDomainData extends AbstractCodeData {
                     }
                 }
                 String beanName = StringUtils.isBlank(domainCodeFileName)?ColumnToPropertyUtil.getBeanNameByTableName(table.getTableName()):domainCodeFileName;
-                beanModel.setBeanName(beanName);
+                beanModel.setFileName(beanName);
                 beanModel.setPackageNameStr(packageNameStr);
-                List<BeanProperties> beanProperties = intJavaProperByTableColumnName(tableColumns);
+                List<DomainPropertiesModel> beanProperties = intJavaProperByTableColumnName(tableColumns);
                 beanModel.setColumns(beanProperties);
                 beanModel.setBeanContent(table.getTableContent());
                 beanModel.setImportStrs(ColumnToPropertyUtil.getImportStrByBeanProperType(beanProperties));
@@ -84,17 +84,17 @@ public class MybatisDomainData extends AbstractCodeData {
      * @return 实体类属性列表
      * @author wanglei 2018年1月21日
      */
-    private static List<BeanProperties> intJavaProperByTableColumnName(List<TableColumn> tableColumns){
-        List<BeanProperties> beanPropertieses = new ArrayList<>();
+    private static List<DomainPropertiesModel> intJavaProperByTableColumnName(List<TableColumn> tableColumns){
+        List<DomainPropertiesModel> beanPropertieses = new ArrayList<>();
         if(null!=tableColumns && tableColumns.size()>0){
             for(TableColumn tableColumn: tableColumns){
-                BeanProperties beanProperties = new BeanProperties();
+                DomainPropertiesModel beanProperties = new DomainPropertiesModel();
                 String columnName = ColumnToPropertyUtil.camelName(tableColumn.getColumnName());
                 beanProperties.setPropertName(ColumnToPropertyUtil.camelName(columnName));
                 beanProperties.setPropertComment(tableColumn.getColumnRmark());
                 beanProperties.setPropertType(ColumnToPropertyUtil.getBenaPropertiesTypeByTableColumn(tableColumn.getColumnType()));
                 beanProperties.setPropertNameUpCase(StringUtils.capitalize(columnName));
-                beanProperties.setJdbcType(tableColumn.getColumnType());
+                beanProperties.setJdbcType(ColumnToPropertyUtil.getJdbcTypeByTableColumn(tableColumn.getColumnType()));
                 beanPropertieses.add(beanProperties);
             }
         }

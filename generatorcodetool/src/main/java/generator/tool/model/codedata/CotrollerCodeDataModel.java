@@ -1,4 +1,4 @@
-package generator.tool.model;
+package generator.tool.model.codedata;
 
 /**
  * <p>Title:Controller 的配置数据 </p>
@@ -8,12 +8,10 @@ package generator.tool.model;
  * @version 1.0
  * @history: Created by wanglei on  2018/8/18
  */
-public class CotrollerCodeData {
-    private String packageNameStr;
+public class CotrollerCodeDataModel extends AbstractCodeDataModel{
     private String importDominPackageStr;
     private String importServicePackageStr;
     private String controllerUrl;
-    private String controllerName;
     private String serviceName;
     private String serviceArgName;
     private String beanName;
@@ -24,13 +22,7 @@ public class CotrollerCodeData {
     private String findPrimarkeyMethodName;
     private String findPageMethodName;
 
-    public String getPackageNameStr() {
-        return packageNameStr;
-    }
 
-    public void setPackageNameStr(String packageNameStr) {
-        this.packageNameStr = packageNameStr;
-    }
 
     public String getImportDominPackageStr() {
         return importDominPackageStr;
@@ -56,13 +48,6 @@ public class CotrollerCodeData {
         this.controllerUrl = controllerUrl;
     }
 
-    public String getControllerName() {
-        return controllerName;
-    }
-
-    public void setControllerName(String controllerName) {
-        this.controllerName = controllerName;
-    }
 
     public String getServiceName() {
         return serviceName;
@@ -138,12 +123,10 @@ public class CotrollerCodeData {
 
     @Override
     public String toString() {
-        return "CotrollerCodeData{" +
-                "packageNameStr='" + packageNameStr + '\'' +
+        return "CotrollerCodeDataModel{" +
                 ", importDominPackageStr='" + importDominPackageStr + '\'' +
                 ", importServicePackageStr='" + importServicePackageStr + '\'' +
                 ", controllerUrl='" + controllerUrl + '\'' +
-                ", controllerName='" + controllerName + '\'' +
                 ", serviceName='" + serviceName + '\'' +
                 ", serviceArgName='" + serviceArgName + '\'' +
                 ", beanName='" + beanName + '\'' +

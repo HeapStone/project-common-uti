@@ -8,7 +8,7 @@ package generator.tool.codefile;
  * @version 1.0
  * @history: Created by wanglei on  2018/10/13
  */
-public class ViewCodeFile  extends AbstractCodeFile {
+public class ViewCodeFile  extends AbstractCodeFile{
     private String fileImplTemplateName;
     /**
      * Default constructor

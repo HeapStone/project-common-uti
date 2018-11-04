@@ -1,110 +1,118 @@
-package ${Paramss.packageNameStr}.impl;
-
+package ${freemMarkParams.packageNameStr};
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import org.json.JSONArray;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import priv.guochun.psmc.authentication.login.model.User;
-import priv.guochun.psmc.authentication.user.model.TabPerson;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.JsonUtil;
-import ${Paramss.importDominPackageStr};
-import ${Paramss.importServicePackageStr}Service;
+import ${freemMarkParams.importDominPackageStr};
+import ${freemMarkParams.importServicePackageStr}.${freemMarkParams.serviceName};
 
 @Controller
-@RequestMapping("${Paramss.controllerUrl}")
-public class  ${Paramss.controllerName} extends MyController{
+@RequestMapping("${freemMarkParams.controllerUrl}")
+public class  ${freemMarkParams.fileName} extends MyController{
 
 	@Autowired
-	private ${Paramss.serviceName} ${Paramss.serviceArgName};
+	private ${freemMarkParams.serviceName} ${freemMarkParams.serviceArgName};
      /**
-	 * 跳转到${Paramss.beanName}列表页面
+	 * 跳转到${freemMarkParams.fileName}列表页面
 	 * @throws IOException
 	 */
-	@RequestMapping(params="method=to${Paramss.beanName}List")
-	public String to${Paramss.beanName}List(){
-		return "${Paramss.beanName}/${Paramss.beanArgName}List";
+	@RequestMapping(params="method=to${freemMarkParams.fileName}List")
+	public String to${freemMarkParams.fileName}List(){
+		return "${freemMarkParams.beanArgName}/${freemMarkParams.beanArgName}List";
 	}
 	/**
-	 * ${Paramss.beanName} 分页查询
+	 * ${freemMarkParams.fileName} 分页查询
 	 * @param myPage 分页对象
 	 * @throws IOException
 	 */
-	@RequestMapping(params="method=find${Paramss.beanName}List")
+	@RequestMapping(params="method=find${freemMarkParams.fileName}List")
 	@ResponseBody
-	public void find${Paramss.beanName}List(MyPage myPage) throws IOException{
-		myPage = ${Paramss.serviceArgName}.${Paramss.findPageMethodName}(myPage);
+	public void find${freemMarkParams.fileName}List(MyPage myPage) throws IOException{
+		myPage = ${freemMarkParams.serviceArgName}.${freemMarkParams.findPageMethodName}(myPage);
 		super.responseJson(JsonUtil.convertToJSONObject(myPage), this.response());
 	}
 
 	/**
-	 * 新增 ${Paramss.beanName} 信息
-	 * @param ${Paramss.beanArgName} ${Paramss.beanName} 信息
+	 * 新增 ${freemMarkParams.fileName} 信息
+	 * @param ${freemMarkParams.beanArgName} ${freemMarkParams.fileName} 信息
 	 * @throws IOException
 	 */
-	@RequestMapping(params="method=save${Paramss.beanName}")
-	public void save${Paramss.beanName}(${Paramss.beanName} ${Paramss.beanArgName}) throws IOException{
-        ${Paramss.serviceArgName}.${Paramss.addMethodName}(${Paramss.beanArgName});
+	@RequestMapping(params="method=save${freemMarkParams.fileName}")
+	public void save${freemMarkParams.fileName}(${freemMarkParams.beanName} ${freemMarkParams.beanArgName}) throws IOException{
+		if(null== ${freemMarkParams.beanArgName}){
+			super.responseJson(false, "新增失败!", this.response());
+		}
+        ${freemMarkParams.serviceArgName}.${freemMarkParams.addMethodName}(${freemMarkParams.beanArgName});
 		super.responseJson(true, "新增成功!", this.response());
 	}
 
 	/**
-	 * 删除${Paramss.beanName} 信息
+	 * 删除${freemMarkParams.fileName} 信息
 	 * @param ids 要删除的ids
 	 * @throws IOException
 	 */
-	@RequestMapping(params="method=delete${Paramss.beanName}")
-	public void delete${Paramss.beanName}(String ids) throws IOException{
-        ${Paramss.serviceArgName}.${Paramss.deleteMethodName}(ids);
+	@RequestMapping(params="method=delete${freemMarkParams.fileName}")
+	public void delete${freemMarkParams.fileName}(String ids) throws IOException{
+         if(StringUtils.isBlank(ids)){
+			super.responseJson(true, "删除失败!", this.response());
+         }
+        ${freemMarkParams.serviceArgName}.${freemMarkParams.deleteMethodName}(ids);
 		super.responseJson(true, "删除成功!", this.response());
 	}
 	/**
-	 * 修改 ${Paramss.beanName} 信息
-	 * @param ${Paramss.beanArgName} ${Paramss.beanName} 信息
+	 * 修改 ${freemMarkParams.fileName} 信息
+	 * @param ${freemMarkParams.beanArgName} ${freemMarkParams.fileName} 信息
 	 * @throws IOException
 	 */
-	@RequestMapping(params="method=save${Paramss.beanName}")
-	public void update${Paramss.beanName}(${Paramss.beanName} ${Paramss.beanArgName}) throws IOException{
-        ${Paramss.serviceArgName}.${Paramss.updateMethodName}(${Paramss.beanArgName});
+	@RequestMapping(params="method=update${freemMarkParams.fileName}")
+	public void update${freemMarkParams.fileName}(${freemMarkParams.beanName} ${freemMarkParams.beanArgName}) throws IOException{
+		if(null== ${freemMarkParams.beanArgName}){
+			super.responseJson(false, "更新失败!", this.response());
+		}
+        ${freemMarkParams.serviceArgName}.${freemMarkParams.updateMethodName}(${freemMarkParams.beanArgName});
 		super.responseJson(true, "修改成功!", this.response());
 	}
 
 	/**
-	 * 跳转到${Paramss.beanName}编辑页面
-	 * @param id ${Paramss.beanName}主键
+	 * 跳转到${freemMarkParams.fileName}编辑页面
+	 * @param id ${freemMarkParams.fileName}主键
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(params="method=toDeptEdit")
-	public String to${Paramss.beanName}Edit(String id，Model model){
+	@RequestMapping(params="method=to${freemMarkParams.fileName}Edit")
+	public String to${freemMarkParams.fileName}Edit(String id,Model model)throws IOException{
+         if(StringUtils.isBlank(id)){
+			super.responseJson(true, "编辑失败!", this.response());
+         }
 		if(StringUtils.isNotBlank(id)){
-			Map<String, Object> ${Paramss.beanArgName} =  ${Paramss.serviceArgName}.${Paramss.findPrimarkeyMethodName}(id);
-			model.addAttribute("${Paramss.beanArgName}", ${Paramss.beanArgName});
+			Map<String, Object> ${freemMarkParams.beanArgName} =  ${freemMarkParams.serviceArgName}.${freemMarkParams.findPrimarkeyMethodName}(id);
+			model.addAttribute("${freemMarkParams.beanArgName}", ${freemMarkParams.beanArgName});
 		}
-		return "backstage/${Paramss.beanName}/${Paramss.beanArgName}Edit";
+		return "backstage/${freemMarkParams.beanArgName}/${freemMarkParams.beanArgName}Edit";
 	}
 
 
 	/**
-	 * ${Paramss.beanName}详情查询
-	 * @param id ${Paramss.beanName}主键
-	 * @param model
+	 * ${freemMarkParams.fileName}详情查询
+	 * @param id ${freemMarkParams.fileName}主键
 	 * @return
 	 */
-	@RequestMapping(params="method=toDeptEdit")
-	public String find${Paramss.beanName}Detail(String id){
+	@RequestMapping(params="method=to${freemMarkParams.fileName}Detail")
+	public void find${freemMarkParams.fileName}Detail(String id)throws IOException{
+ 		if(StringUtils.isBlank(id)){
+			super.responseJson(true, "获取详情失败!", this.response());
+         }
+        Map<String, Object> ${freemMarkParams.beanArgName} = null;
 		if(StringUtils.isNotBlank(id)){
-			Map<String, Object> ${Paramss.beanArgName} =  ${Paramss.serviceArgName}.${Paramss.findPrimarkeyMethodName}(id);
+		${freemMarkParams.beanArgName} =  ${freemMarkParams.serviceArgName}.${freemMarkParams.findPrimarkeyMethodName}(id);
 		}
-		super.responseJson(JsonUtil.convertToJSONObject(${Paramss.beanArgName}), this.response());
+		super.responseJson(JsonUtil.convertToJSONObject(${freemMarkParams.beanArgName}), this.response());
 	}
 }

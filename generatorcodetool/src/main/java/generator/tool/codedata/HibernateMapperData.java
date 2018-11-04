@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Hibernate映射文件数据
  */
-public class HibernateMapperData extends AbstractCodeData {
+public class HibernateMapperData implements AbstractCodeData {
 
     /**
      * Default constructor

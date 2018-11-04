@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 要生成代码对象工具的超类
  */
-public abstract class AbstractCodeFile  {
+public abstract class AbstractCodeFile implements  CodeFileInterface {
 
     /**
      * Default constructor
@@ -59,15 +59,5 @@ public abstract class AbstractCodeFile  {
      * 文件名
      */
     protected String fileName;
-
-    /**
-     * 默认生成代码文件的方法
-     */
-    public abstract void generatorCodeFile();
-
-    /**
-     * 初始化数据方法
-     */
-    public abstract void inIntCodeFileData();
 
 }

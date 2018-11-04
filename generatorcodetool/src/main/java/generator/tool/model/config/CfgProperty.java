@@ -1,4 +1,4 @@
-package generator.tool.model;
+package generator.tool.model.config;
 
 /**
  * <p>Title: </p>

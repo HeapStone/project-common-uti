@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Structs2.0控制层数据
  */
-public class Structs2ControllerData extends AbstractCodeData {
+public class Structs2ControllerData implements AbstractCodeData {
 
     /**
      * Default constructor

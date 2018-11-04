@@ -2,27 +2,27 @@
 <codefileConfig>
     <!-- 公共代码的配置信息 不可缺省 -->
     <!--项目路径--><!--数据库驱动--><!--数据库路径--><!--用户名--><!--密码--><!--模板路径-->
-     <commonConfig projectPath ="D:\generator\"  driver ="com.mysql.jdbc.Driver"
+     <commonConfig projectPath ="D:\otherproject\psmc\src\main\java\"  driver ="com.mysql.jdbc.Driver"
                    url="jdbc:mysql://localhost:3306/houserental"
                    userName ="root" password ="123456" templatepath ="/template" >
         <!-- 实体类的配置信息：type对应框架类型：目前支持mybatis、hibernate；
          pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
-           <daominCode codeType="mybatis" pakageName="com.test.model" fileTemplateName="mybatisDomain.ftl" fileSuffx=".java"  isGenerator="true"/>
+           <daominCode codeType="mybatis" pakageName="priv.guochun.psmc.website.stage.model" fileTemplateName="mybatisDomain.ftl" fileSuffx=".java"  isGenerator="true"/>
            <!-- 控制层的配置信息：type对应框架类型：目前支持structs2、springMvc； 
          pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
-           <controllerCode codeType="springMvc" pakageName="com.test.controller" fileTemplateName="springMvcController.ftl" fileSuffx=".java"  isGenerator="false"/>
+           <controllerCode codeType="springMvc" pakageName="priv.guochun.psmc.website.stage.controller" fileTemplateName="springMvcController.ftl" fileSuffx=".java"  isGenerator="true"/>
             <!-- dao的配置信息：type对应框架类型：目前支持mybatis、hibernate； 
          pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
            <daoDaoCode codeType="mybatis" pakageName="com.test.dao" fileTemplateName="mybatisDao.ftl" fileImplTemplateName="mybatisServiceImpl.ftl" fileSuffx=".java"  isGenerator="false"/>
            <!-- service的配置信息：type对应框架类型：目前支持mybatis、hibernate； 
          pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
-           <serviceCode codeType="service" pakageName="com.test.service" fileTemplateName="mybatisService.ftl" fileImplTemplateName="mybatisServiceImpl.ftl" fileSuffx=".java"  isGenerator="true" />
+           <serviceCode codeType="service" pakageName="priv.guochun.psmc.website.stage.service" fileTemplateName="mybatisService.ftl" fileImplTemplateName="mybatisServiceImpl.ftl" fileSuffx=".java"  isGenerator="true" />
            <!--页面文件的配置信息：type对应框架类型：目前支持jsp、HTML； 
          pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
            <viewCode codeType="jsp" filePath="/jsp/" fileTemplateName="jspTemplate.ftl" fileSuffx=".jsp" isGenerator="false" />
             <!-- 映射文件的配置信息：type对应框架类型：目前支持mybatis、hibernate； 
          pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
-           <mapperFile codeType="mybatis" filePath="/com/test/model/mapper/" fileTemplateName="mybatis-Mapper.ftl" fileSuffx=".mapper.xml"  isGenerator="true"/>
+           <mapperFile codeType="mybatis" filePath="/priv/guochun/psmc/website/stage/model/mapper/" fileTemplateName="mybatis-Mapper.ftl" fileSuffx=".mapper.xml"  isGenerator="true"/>
     </commonConfig>
     <!-- 配置文件说明：
           tables按照指定的数据表生成代码，可以指定要生成代码的表，动态配置要生成代码文件的信息，
@@ -41,18 +41,18 @@
                 <tbaleColumn domainColunmName="" tableColunmName=""/>
             </tbaleColumns>
         </table>
-         <!-- 单个表对应生成代码的配置 可缺省，如果缺省按照公共配置生成所有表-->
-         <table tableName="tb_house" domainCodeFileName="House" controllerCodeFileName=""
-                serviceCodeFileName="" mapperCodeFileName="" daoCodeFileName="" viewCodeFileName="">
-             <!-- 每个表属性类配置-->
-             <tbaleColumns>
-                 <tbaleColumn domainColunmName="" tableColunmName=""/>
-                 <tbaleColumn domainColunmName="" tableColunmName=""/>
-                 <tbaleColumn domainColunmName="" tableColunmName=""/>
-                 <tbaleColumn domainColunmName="" tableColunmName=""/>
-                 <tbaleColumn domainColunmName="" tableColunmName=""/>
-             </tbaleColumns>
-         </table>
+         <!--&lt;!&ndash; 单个表对应生成代码的配置 可缺省，如果缺省按照公共配置生成所有表&ndash;&gt;-->
+         <!--<table tableName="tb_house" domainCodeFileName="House" controllerCodeFileName=""-->
+                <!--serviceCodeFileName="" mapperCodeFileName="" daoCodeFileName="" viewCodeFileName="">-->
+             <!--&lt;!&ndash; 每个表属性类配置&ndash;&gt;-->
+             <!--<tbaleColumns>-->
+                 <!--<tbaleColumn domainColunmName="" tableColunmName=""/>-->
+                 <!--<tbaleColumn domainColunmName="" tableColunmName=""/>-->
+                 <!--<tbaleColumn domainColunmName="" tableColunmName=""/>-->
+                 <!--<tbaleColumn domainColunmName="" tableColunmName=""/>-->
+                 <!--<tbaleColumn domainColunmName="" tableColunmName=""/>-->
+             <!--</tbaleColumns>-->
+         <!--</table>-->
 
     </tables>
 </codefileConfig>

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Hibernate实体类数据
  */
-public class HibernateDomainData extends AbstractCodeData {
+public class HibernateDomainData implements AbstractCodeData {
 
     /**
      * Default constructor

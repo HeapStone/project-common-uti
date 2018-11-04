@@ -68,6 +68,9 @@ public class CommonConstants {
     public static final String updateMethodName = "updateMethodNametableColumn";
     public static final String findPrimarkeyMethodName = "findPrimarkeyMethodName";
     public static final String findPageMethodName = "findPageMethodName";
+    public static final String servicePackageName = "servicePackageName";
+    public static final String freemMarkParams = "freemMarkParams";
+
 
 
 

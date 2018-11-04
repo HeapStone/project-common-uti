@@ -1,23 +1,23 @@
-package ${Paramss.packageNameStr};
+package ${freemMarkParams.packageNameStr};
 import java.io.Serializable;
 <#--导包 -->
-<#list Paramss.importStrs as importStr>
+<#list freemMarkParams.importStrs as importStr>
 import ${importStr};
 </#list>
-<#if Paramss.beanContent!="">
+<#if freemMarkParams.beanContent!="">
     /*
-     *${Paramss.beanContent}
+     *${freemMarkParams.beanContent}
      *
      */
 </#if>
-public class ${Paramss.beanName} implements Serializable{
+public class ${freemMarkParams.fileName} implements Serializable{
     /**
 	 * serialVersionUID
 	 */
  private static final long serialVersionUID = 1L;
 
 <#--属性生成 -->
-<#list Paramss.columns as _column>
+<#list freemMarkParams.columns as _column>
     <#if _column.propertComment!="">
     /**
      *${_column.propertComment}
@@ -26,7 +26,7 @@ public class ${Paramss.beanName} implements Serializable{
     </#if>
     private ${_column.propertType} ${_column.propertName};
 </#list>
-<#list Paramss.columns as _column>
+<#list freemMarkParams.columns as _column>
 
     public ${_column.propertType} get${_column.propertNameUpCase}(){
         return ${_column.propertName};
@@ -37,13 +37,13 @@ public class ${Paramss.beanName} implements Serializable{
     }
 </#list>
 <#--构造函数-->
-    public ${Paramss.beanName}(){
+    public ${freemMarkParams.fileName}(){
      	super();
 	}
 	@Override
 	public String toString() {
-		return "${Paramss.beanName} ["+""
-<#list Paramss.columns as _column>
+		return "${freemMarkParams.fileName} ["+""
+<#list freemMarkParams.columns as _column>
 		 + "${_column.propertName}="+${_column.propertName}+","
 </#list>
 		  + "]";

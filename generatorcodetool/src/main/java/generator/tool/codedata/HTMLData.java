@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * HTML页面数据
  */
-public class HTMLData extends AbstractCodeData {
+public class HTMLData implements AbstractCodeData {
 
     /**
      * Default constructor

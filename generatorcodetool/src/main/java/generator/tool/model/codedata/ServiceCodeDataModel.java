@@ -1,4 +1,4 @@
-package generator.tool.model;
+package generator.tool.model.codedata;
 
 /**
  * <p>Title: </p>
@@ -8,9 +8,8 @@ package generator.tool.model;
  * @version 1.0
  * @history: Created by wanglei on  2018/8/14
  */
-public class ServiceCodeDataModel {
+public class ServiceCodeDataModel  extends AbstractCodeDataModel{
     private String tableName;
-    private String packageNameStr;
     private String importDominPackageStr;
     private String beanContent;
     private String serviceName;
@@ -35,14 +34,6 @@ public class ServiceCodeDataModel {
 
     public void setTableName(String tableName) {
         this.tableName = tableName;
-    }
-
-    public String getPackageNameStr() {
-        return packageNameStr;
-    }
-
-    public void setPackageNameStr(String packageNameStr) {
-        this.packageNameStr = packageNameStr;
     }
 
     public String getImportDominPackageStr() {
@@ -193,7 +184,6 @@ public class ServiceCodeDataModel {
     public String toString() {
         return "ServiceCodeDataModel{" +
                 "tableName='" + tableName + '\'' +
-                ", packageNameStr='" + packageNameStr + '\'' +
                 ", importDominPackageStr='" + importDominPackageStr + '\'' +
                 ", beanContent='" + beanContent + '\'' +
                 ", serviceName='" + serviceName + '\'' +

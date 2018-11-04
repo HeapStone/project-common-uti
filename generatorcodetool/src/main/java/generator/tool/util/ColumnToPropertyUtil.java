@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import generator.tool.model.BeanProperties;
+import generator.tool.model.codedata.DomainPropertiesModel;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -97,9 +97,9 @@ public static String getBeanNameByTableName(String tablename){
  * @author wanglei 2018年1月21日
  */
 @SuppressWarnings("unchecked")
-public static List<String> getImportStrByBeanProperType(List<BeanProperties> beanProperties){
+public static List<String> getImportStrByBeanProperType(List<DomainPropertiesModel> beanProperties){
 	List<String> importStr = new ArrayList<String>();
-	for(BeanProperties beanPropertie : beanProperties){
+	for(DomainPropertiesModel beanPropertie : beanProperties){
 		String type = beanPropertie.getPropertType();
 		String typePackageStr = null;
 		 if("Timestamp".equalsIgnoreCase(type)){
@@ -166,4 +166,35 @@ public static String getBenaPropertiesTypeByTableColumn(String columnType){
 	}
 	return javaType ;
  }
+	public static String getJdbcTypeByTableColumn(String columnType){
+		String javaType = null;
+		if("VARCHAR".equalsIgnoreCase(columnType)){
+			return "VARCHAR";
+		}else if("TIMESTAMP".equalsIgnoreCase(columnType)){
+			return "TIMESTAMP";
+		}else if("Date".equalsIgnoreCase(columnType)){
+			return "DATE";
+		}else if("DOUBLE".equalsIgnoreCase(columnType)){
+			return "DOUBLE";
+		}else if("INT".equalsIgnoreCase(columnType)){
+			return "INTEGER";
+		}
+		return javaType ;
+	}
+	//首字母转小写
+	public static String toLowerCaseFirstOne(String s){
+		if(Character.isLowerCase(s.charAt(0)))
+			return s;
+		else
+			return (new StringBuilder()).append(Character.toLowerCase(s.charAt(0))).append(s.substring(1)).toString();
+	}
+
+
+	//首字母转大写
+	public static String toUpperCaseFirstOne(String s){
+		if(Character.isUpperCase(s.charAt(0)))
+			return s;
+		else
+			return (new StringBuilder()).append(Character.toUpperCase(s.charAt(0))).append(s.substring(1)).toString();
+	}
 }

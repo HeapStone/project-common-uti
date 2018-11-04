@@ -1,4 +1,6 @@
-package generator.tool.model;
+package generator.tool.model.codedata;
+
+import generator.tool.model.config.CfgProperty;
 
 import java.util.List;
 
@@ -10,8 +12,7 @@ import java.util.List;
  * @version 1.0
  * @history: Created by wanglei on  2018/8/8
  */
-public class MybatisMapperConfig extends AbstractMapperConfig{
-    private String fileName;
+public class MybatisMapperCodeDataModel extends   AbstractCodeDataModel {
     private String cfgClassName;
     private String cfgResultMapID;
     private String cfgResultType;
@@ -129,18 +130,9 @@ public class MybatisMapperConfig extends AbstractMapperConfig{
         this.cfgPropertys = cfgPropertys;
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
     @Override
     public String toString() {
-        return "MybatisMapperConfig{" +
-                "fileName='" + fileName + '\'' +
+        return "MybatisMapperCodeDataModel{" +
                 ", cfgClassName='" + cfgClassName + '\'' +
                 ", cfgResultMapID='" + cfgResultMapID + '\'' +
                 ", cfgResultType='" + cfgResultType + '\'' +
@@ -157,6 +149,6 @@ public class MybatisMapperConfig extends AbstractMapperConfig{
                 '}';
     }
 
-    public MybatisMapperConfig() {
+    public MybatisMapperCodeDataModel() {
     }
 }
