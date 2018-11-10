@@ -1,5 +1,11 @@
 package generator.tool.constants;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
+
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * <p>Title: 系统常量类 </p>
  * <p>Description:</p>
@@ -69,7 +75,6 @@ public class CommonConstants {
     public static final String findPrimarkeyMethodName = "findPrimarkeyMethodName";
     public static final String findPageMethodName = "findPageMethodName";
     public static final String servicePackageName = "servicePackageName";
-    public static final String freemMarkParams = "freemMarkParams";
 
 
 

@@ -11,9 +11,6 @@ import java.io.Serializable;
  * @history: Created by wanglei on  2018/7/30
  */
 public class BaseCodeConfig implements Serializable {
-    //代码类型
-    //mybatis;springMvc;hibernate;struts;
-    private String codeType;
     //包名
     private String pakageName;
     //模板名称
@@ -26,17 +23,12 @@ public class BaseCodeConfig implements Serializable {
     private String fileName;
     //文件路径
     private String filePath;
+    //获取数据类的类名
+    private String codeDataClassName;
 
     public BaseCodeConfig() {
     }
 
-    public String getCodeType() {
-        return codeType;
-    }
-
-    public void setCodeType(String codeType) {
-        this.codeType = codeType;
-    }
 
     public String getPakageName() {
         return pakageName;
@@ -86,16 +78,32 @@ public class BaseCodeConfig implements Serializable {
         this.filePath = filePath;
     }
 
+    public Boolean getGenerator() {
+        return isGenerator;
+    }
+
+    public void setGenerator(Boolean generator) {
+        isGenerator = generator;
+    }
+
+    public String getCodeDataClassName() {
+        return codeDataClassName;
+    }
+
+    public void setCodeDataClassName(String codeDataClassName) {
+        this.codeDataClassName = codeDataClassName;
+    }
+
     @Override
     public String toString() {
         return "BaseCodeConfig{" +
-                "codeType='" + codeType + '\'' +
                 ", pakageName='" + pakageName + '\'' +
                 ", fileTemplateName='" + fileTemplateName + '\'' +
                 ", fileSuffx='" + fileSuffx + '\'' +
-                ", isGenerator='" + isGenerator + '\'' +
+                ", isGenerator=" + isGenerator +
                 ", fileName='" + fileName + '\'' +
                 ", filePath='" + filePath + '\'' +
+                ", codeDataClassName='" + codeDataClassName + '\'' +
                 '}';
     }
 }

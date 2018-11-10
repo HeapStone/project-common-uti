@@ -17,6 +17,7 @@ public class CommonConfig implements Serializable {
     private String userName;
     private String password;
     private String templatepath;
+    private String freeMarkParams;
     private DomainCodeConfig daominCode;
     private ControllerCodeConfig controllerCode;
     private DaoCodeConfig daoDaoCode;
@@ -120,6 +121,14 @@ public class CommonConfig implements Serializable {
         this.templatepath = templatepath;
     }
 
+    public String getFreeMarkParams() {
+        return freeMarkParams;
+    }
+
+    public void setFreeMarkParams(String freeMarkParams) {
+        this.freeMarkParams = freeMarkParams;
+    }
+
     @Override
     public String toString() {
         return "CommonConfig{" +
@@ -129,6 +138,7 @@ public class CommonConfig implements Serializable {
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", templatepath='" + templatepath + '\'' +
+                ", freeMarkParams='" + freeMarkParams + '\'' +
                 ", daominCode=" + daominCode +
                 ", controllerCode=" + controllerCode +
                 ", daoDaoCode=" + daoDaoCode +

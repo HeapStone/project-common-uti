@@ -46,7 +46,7 @@ public class CommonUtil {
                 String templatePath = tempCommonCfg.getTemplatepath();
                 FreemarkUtil ftlu = FreemarkUtil.getInstance(CommonConstants.FREEMARK_VERSION,templatePath);
                 Map<String,Object> dataModel = new HashMap<>();
-                dataModel.put(CommonConstants.freemMarkParams, codeDataModel);
+                dataModel.put(tempCommonCfg.getFreeMarkParams(), codeDataModel);
                 ftlu.fprintTemplate(dataModel,codeTemplateFileName , outPath, codeDataModel.getFileName()+codeFileSuffx);
                 if(withImpl&&StringUtils.isNotEmpty(fileImplTemplateName)){
                     //生成实现类

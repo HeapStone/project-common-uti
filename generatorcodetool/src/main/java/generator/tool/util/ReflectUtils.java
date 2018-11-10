@@ -265,29 +265,34 @@ private static Object convertProperType(String methodType,Object ob){
 	public static Map<String,Object> getBeanProperty(Object obj){
 	Map<String,Object> remaps = new HashMap<String, Object>();
 	Class<?> clazz = null == obj? null: obj.getClass();
-	try {
-		if(null!=clazz){
-			Field [] fields = getClassFileds(clazz);
-			 for(Field field :fields){
-				 String fieldName = field.getName();
-				 if(!fieldName.equalsIgnoreCase("serialVersionUID")){
-					 PropertyDescriptor pd = new PropertyDescriptor(fieldName,clazz);
+	remaps = getBeanPropertyByClassName(obj, clazz);
+	return remaps;
+}
+	public static Map<String,Object> getBeanPropertyByClassName(Object obj,Class clazz){
+		Map<String,Object> remaps = new HashMap<String, Object>();
+		try {
+			if(null!=clazz){
+				Field [] fields = getClassFileds(clazz);
+				for(Field field :fields){
+					String fieldName = field.getName();
+					if(!fieldName.equalsIgnoreCase("serialVersionUID")){
+						PropertyDescriptor pd = new PropertyDescriptor(fieldName,clazz);
 						Method method = pd.getReadMethod();
 						if(null != method){
 							remaps.put(fieldName, method.invoke(obj, new Object []{}));
 						}else{
 							throw new RuntimeException(clazz.getName()+ "属性["+fieldName+"] 未定义getter方法!");
 						}
-				 }
-			 }
+					}
+				}
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	 
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		return remaps;
 	}
-	return remaps;
-}
 
 	/**
 	 *根据属性名获取bean的属性值

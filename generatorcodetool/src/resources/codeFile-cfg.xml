@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <codefileConfig>
     <!-- 公共代码的配置信息 不可缺省 -->
-    <!--项目路径--><!--数据库驱动--><!--数据库路径--><!--用户名--><!--密码--><!--模板路径-->
+    <!--项目路径--><!--数据库驱动--><!--数据库路径--><!--用户名--><!--密码--><!--模板路径--> <!--freemMarkParams：模板参数-->
      <commonConfig projectPath ="D:\otherproject\psmc\src\main\java\"  driver ="com.mysql.jdbc.Driver"
                    url="jdbc:mysql://localhost:3306/houserental"
-                   userName ="root" password ="123456" templatepath ="/template" >
-        <!-- 实体类的配置信息：type对应框架类型：目前支持mybatis、hibernate；
+                   userName ="root" password ="123456" templatepath ="/template" freeMarkParams="freemMarkParams">
+        <!-- 实体类的配置信息：codeDataClassName对应代码文件获取数据的类；
          pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
-           <daominCode codeType="mybatis" pakageName="priv.guochun.psmc.website.stage.model" fileTemplateName="mybatisDomain.ftl" fileSuffx=".java"  isGenerator="true"/>
-           <!-- 控制层的配置信息：type对应框架类型：目前支持structs2、springMvc； 
+           <daominCode pakageName="priv.guochun.psmc.website.stage.model"  codeDataClassName="generator.tool.codedata.MybatisDomainData" fileTemplateName="mybatisDomain.ftl" fileSuffx=".java"  isGenerator="true"/>
+           <!-- 控制层的配置信息：codeDataClassName对应代码文件获取数据的类；
          pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
-           <controllerCode codeType="springMvc" pakageName="priv.guochun.psmc.website.stage.controller" fileTemplateName="springMvcController.ftl" fileSuffx=".java"  isGenerator="true"/>
-            <!-- dao的配置信息：type对应框架类型：目前支持mybatis、hibernate； 
+           <controllerCode  pakageName="priv.guochun.psmc.website.stage.controller" codeDataClassName="generator.tool.codedata.SpringMvcControllerData" fileTemplateName="springMvcController.ftl" fileSuffx=".java"  isGenerator="true"/>
+            <!-- dao的配置信息：codeDataClassName对应代码文件获取数据的类；
          pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
-           <daoDaoCode codeType="mybatis" pakageName="com.test.dao" fileTemplateName="mybatisDao.ftl" fileImplTemplateName="mybatisServiceImpl.ftl" fileSuffx=".java"  isGenerator="false"/>
-           <!-- service的配置信息：type对应框架类型：目前支持mybatis、hibernate； 
+           <daoDaoCode  pakageName="com.test.dao" fileTemplateName="mybatisDao.ftl"  codeDataClassName="generator.tool.codedata.DaoCodeData" fileImplTemplateName="mybatisServiceImpl.ftl" fileSuffx=".java"  isGenerator="false"/>
+           <!-- service的配置信息：codeDataClassName对应代码文件获取数据的类；
          pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
-           <serviceCode codeType="service" pakageName="priv.guochun.psmc.website.stage.service" fileTemplateName="mybatisService.ftl" fileImplTemplateName="mybatisServiceImpl.ftl" fileSuffx=".java"  isGenerator="true" />
-           <!--页面文件的配置信息：type对应框架类型：目前支持jsp、HTML； 
+           <serviceCode  pakageName="priv.guochun.psmc.website.stage.service"  codeDataClassName="generator.tool.codedata.SerivceCodeData" fileTemplateName="mybatisService.ftl" fileImplTemplateName="mybatisServiceImpl.ftl" fileSuffx=".java"  isGenerator="true" />
+           <!--页面文件的配置信息：codeDataClassName对应代码文件获取数据的类；
          pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
-           <viewCode codeType="jsp" filePath="/jsp/" fileTemplateName="jspTemplate.ftl" fileSuffx=".jsp" isGenerator="false" />
-            <!-- 映射文件的配置信息：type对应框架类型：目前支持mybatis、hibernate； 
+           <viewCode  filePath="/jsp/" fileTemplateName="jspTemplate.ftl"  codeDataClassName="generator.tool.codedata.JspData" fileSuffx=".jsp" isGenerator="false" />
+            <!-- 映射文件的配置信息：codeDataClassName对应代码文件获取数据的类；
          pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
-           <mapperFile codeType="mybatis" filePath="/priv/guochun/psmc/website/stage/model/mapper/" fileTemplateName="mybatis-Mapper.ftl" fileSuffx=".mapper.xml"  isGenerator="true"/>
+           <mapperFile  filePath="/priv/guochun/psmc/website/stage/model/mapper/"  codeDataClassName="generator.tool.codedata.MybatisMapperData" fileTemplateName="mybatis-Mapper.ftl" fileSuffx=".mapper.xml"  isGenerator="true"/>
     </commonConfig>
     <!-- 配置文件说明：
           tables按照指定的数据表生成代码，可以指定要生成代码的表，动态配置要生成代码文件的信息，
