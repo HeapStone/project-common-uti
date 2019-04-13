@@ -40,9 +40,9 @@ public class ReadXmlUtils {
         Document document = null;  
         try {  
             SAXReader reader = new SAXReader();  
-            document = reader.read(new File(ReadXmlUtils.class.getResource("/").getPath()+path));
-        } catch (Exception e) {  
-            e.printStackTrace();  
+            document = reader.read(new File(path));
+        } catch (Exception e) {
+		    throw 	new RuntimeException("找不到配置文件!",e);
         }  
         return document;  
     }  

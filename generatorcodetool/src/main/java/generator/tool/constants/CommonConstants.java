@@ -75,6 +75,16 @@ public class CommonConstants {
     public static final String findPrimarkeyMethodName = "findPrimarkeyMethodName";
     public static final String findPageMethodName = "findPageMethodName";
     public static final String servicePackageName = "servicePackageName";
+    //系统标题
+    public static final String mainFreamTitle = "代码生成工具V1.0";
+    //系统页面大小
+    public static final int mainFreamWidth = 540;
+    //页面高度
+    public static final int mainFreamHight = 150;
+    //代码配置路径
+    public static final String cofigLabel = "配置文件路径：";
+    //代码配置路径
+    public static final String generatorBtn = "生成代码";
 
 
 

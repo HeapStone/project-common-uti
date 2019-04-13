@@ -160,7 +160,7 @@ public class XmlConverUtil {
      */
     public static String xmltoJson(String xml) {  
         XMLSerializer xmlSerializer = new XMLSerializer();  
-        return xmlSerializer.read(xml).toString();  
+        return xmlSerializer.read(xml).toString();
     }  
   
     // Document to xml

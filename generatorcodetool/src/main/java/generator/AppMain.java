@@ -1,19 +1,16 @@
 package generator;
 
-import generator.tool.factory.GeneratorCodeUtil;
+import generator.tool.view.AppMainFream;
 
 /**
  * 主启动类
  */
 public class AppMain {
-
-
     /**
      * @param args
      */
     public static void main(String[] args) {
-        GeneratorCodeUtil generatorCodeUtil = new GeneratorCodeUtil();
-        generatorCodeUtil.genterCodeFile();
+       new AppMainFream().inIntMainFream();
     }
 
 }

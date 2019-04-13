@@ -4,8 +4,8 @@
     <!--项目路径--><!--数据库驱动--><!--数据库路径--><!--用户名--><!--密码--><!--模板路径--> <!--freemMarkParams：模板参数-->
      <commonConfig projectPath ="D:\otherproject\psmc\src\main\java\"  driver ="com.mysql.jdbc.Driver"
                    url="jdbc:mysql://localhost:3306/houserental"
-                   userName ="root" password ="123456" templatepath ="/template" freeMarkParams="freemMarkParams">
-        <!-- 实体类的配置信息：codeDataClassName对应代码文件获取数据的类；
+                   userName ="root" password ="123456" templatepath ="D:\javawork\ideaworkspace\project-common-util\generatorcodetool\bin\template" freeMarkParams="freemMarkParams">
+        <!-- 实体类的配置信息：codeDataClassName对应代码文件获取数据的类；（codeDataClassName暂时不支持修改）
          pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
            <daominCode pakageName="priv.guochun.psmc.website.stage.model"  codeDataClassName="generator.tool.codedata.MybatisDomainData" fileTemplateName="mybatisDomain.ftl" fileSuffx=".java"  isGenerator="true"/>
            <!-- 控制层的配置信息：codeDataClassName对应代码文件获取数据的类；
@@ -26,13 +26,16 @@
     </commonConfig>
     <!-- 配置文件说明：
           tables按照指定的数据表生成代码，可以指定要生成代码的表，动态配置要生成代码文件的信息，
-          如果没有这个配置默认全局配置生成全部表的代码
+          如果没有这个配置默认全局配置生成全部表的代码 tableName：表名 domainCodeFileName：实体类名称
+          controllerCodeFileName：controller名称 serviceCodeFileName：service名称 mapperCodeFileName：实体类映射问件名称
+          daoCodeFileName：dao名称 viewCodeFileName：页面名称
      -->
      <tables>
         <!-- 单个表对应生成代码的配置 可缺省，如果缺省按照公共配置生成所有表-->
         <table tableName="tb_dict_type" domainCodeFileName="DictType" controllerCodeFileName=""
                serviceCodeFileName="" mapperCodeFileName="" daoCodeFileName="" viewCodeFileName="">
             <!-- 每个表属性类配置-->
+            <!-- tbaleColumns ：表属性配置；domainColunmName：实体属性名称；tableColunmName :表属性 -->
             <tbaleColumns>
                 <tbaleColumn domainColunmName="" tableColunmName=""/>
                 <tbaleColumn domainColunmName="" tableColunmName=""/>

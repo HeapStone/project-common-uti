@@ -1,5 +1,6 @@
 package generator.tool.factory;
 
+import freemarker.template.utility.CollectionUtils;
 import generator.tool.codefile.AbstractCodeFile;
 import generator.tool.constants.CommonConstants;
 import generator.tool.model.ProjectCodePropertiesModel;
@@ -27,8 +28,8 @@ public class GeneratorCodeUtil {
     /**
      * Default constructor
      */
-    public GeneratorCodeUtil() {
-        inIntCofing();
+    public GeneratorCodeUtil(String configFileSrc) {
+        inIntCofing(configFileSrc);
     }
 
     /**
@@ -39,10 +40,13 @@ public class GeneratorCodeUtil {
     /**
      * 初始系统
      */
-    private void inIntCofing() {
+    private void inIntCofing(String configFileSrc) {
+        if(StringUtils.isEmpty(configFileSrc)){
+            throw new RuntimeException("配置文件路径不能为空!");
+        }
         logger.info("------------------------系统初始化-----------------------------");
         //获取配置信息
-        Document document = ReadXmlUtils.getXMLByFilePath(CommonConstants.CODE_FILE_CONFIG_PATH);
+        Document document = ReadXmlUtils.getXMLByFilePath(configFileSrc);
         String configStr = XmlConverUtil.xmltoJson(ReadXmlUtils.documentToString(document, CommonConstants.CHAR_SET)).replace("@", "");
         CodeFileCfg codeFileCfg = (CodeFileCfg) JsonHelper.toJavaBean(CodeFileCfg.class, configStr);
         checkCodeFileConfig(codeFileCfg);
@@ -66,7 +70,6 @@ public class GeneratorCodeUtil {
      */
     public void genterCodeFile() {
         this.setCodefiles();
-
         for (AbstractCodeFile abstractCodeFile : abstractCodeFiles) {
             abstractCodeFile.generatorCodeFile();
         }
@@ -179,6 +182,9 @@ public class GeneratorCodeUtil {
     private void getTableBenasByConfig() {
         CodeFileCfg codeFileCfg = SystemContext.get(CommonConstants.CODE_FILE_CONFIG, CodeFileCfg.class);
         List<TableBean> tableBeans = (List<TableBean>) SystemContext.get(CommonConstants.TABLE_BEANS);
+        if(null==tableBeans){
+            throw new RuntimeException("获取数据表错误!");
+        }
         //获取单表配置信息
         List<TableConfig> tableConfigs = codeFileCfg.getTables();
         //判断一下如果单表配置信息为空则为所有表生成代码，否则只生成配置表

@@ -7,7 +7,6 @@ import java.io.PrintWriter;
 import java.util.Map;
 
 import org.apache.commons.io.output.FileWriterWithEncoding;
-import org.apache.log4j.Logger;
 
 
 import freemarker.core.ParseException;
@@ -17,6 +16,8 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
 import freemarker.template.Version;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>Title: freemarker 工具类</p>
@@ -28,7 +29,9 @@ import freemarker.template.Version;
  * Created by wanglei 2017-8-14
  */
 public class FreemarkUtil {
-	static Logger logger = Logger.getLogger(FreemarkUtil.class);
+
+
+	static Logger logger = LoggerFactory.getLogger(FreemarkUtil.class);
 	 //静态工具类
 	 private static FreemarkUtil freemarkUtil;
 	 //配置对象
@@ -46,8 +49,12 @@ public class FreemarkUtil {
 	public static FreemarkUtil getInstance(String freemarkerVersionNo, String ftlPath) {
 		  if (null == freemarkUtil) {
 		   cfg = new Configuration(new Version(freemarkerVersionNo));
-		   cfg.setClassForTemplateLoading(FreemarkUtil.class, ftlPath);
-		   logger.info("----------正在读取ftl模板目录"+ftlPath+"下的文件");
+			  try {
+				  cfg.setDirectoryForTemplateLoading(new File(ftlPath));
+			  } catch (IOException e) {
+				  e.printStackTrace();
+			  }
+			  logger.info("----------正在读取ftl模板目录"+ftlPath+"下的文件");
 		   freemarkUtil=new FreemarkUtil();
 		   logger.info("----------正在构建模板工具类");
 		  }
