@@ -24,7 +24,6 @@ public class AppMainFream {
     Logger logger = LoggerFactory.getLogger(AppMainFream.class);
     //初始化页面的方法
     public void inIntMainFream() {
-        String filePathSrc = null;
         JFrame frame = new JFrame();
         frame.setTitle(CommonConstants.mainFreamTitle);
         frame.setSize(CommonConstants.mainFreamWidth, CommonConstants.mainFreamHight);
