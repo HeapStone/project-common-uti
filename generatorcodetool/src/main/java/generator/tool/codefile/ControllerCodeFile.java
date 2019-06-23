@@ -46,8 +46,8 @@ public class ControllerCodeFile extends AbstractCodeFile {
     @Override
     public void inIntCodeFileData() {
         CodeFileDataFactory codeFileDataFactory = new CodeFileDataFactory();
-        this.abstractCodeDatas =codeFileDataFactory.getCodeFileData(CommonConstants.CONTROLLER);
-        this.abstractCodeDataModels = (List<AbstractCodeDataModel>)abstractCodeDatas.inIntCodeFileData((List<TableBean>)SystemContext.get(CommonConstants.TABLE_BEANS));
+        this.abstractCodeDatas = codeFileDataFactory.getCodeFileData(CommonConstants.CONTROLLER);
+        this.abstractCodeDataModels = abstractCodeDatas.inIntCodeFileData((List<TableBean>)SystemContext.get(CommonConstants.TABLE_BEANS));
     }
 
 }

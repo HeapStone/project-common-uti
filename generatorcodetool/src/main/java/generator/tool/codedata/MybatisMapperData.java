@@ -24,7 +24,7 @@ import java.util.Map;
  * @version 1.0
  * @history: Created by wanglei on  2018/10/13
  */
-public class MybatisMapperData implements AbstractCodeData{
+public class MybatisMapperData implements AbstractCodeData <List<MybatisMapperCodeDataModel>>{
     private  List<MybatisMapperCodeDataModel> mybatisMapperConfigs  = new ArrayList<>();
     /**
      * Default constructor
@@ -33,7 +33,7 @@ public class MybatisMapperData implements AbstractCodeData{
     }
 
     @Override
-    public Object inIntCodeFileData(List<TableBean> tableBeans) {
+    public List<MybatisMapperCodeDataModel> inIntCodeFileData(List<TableBean> tableBeans) {
         CodeFileCfg codeFileCfg = SystemContext.get(CommonConstants.CODE_FILE_CONFIG, CodeFileCfg.class);
         Map<String, ProjectCodePropertiesModel> projectCodePropertiesModelMap = (Map<String, ProjectCodePropertiesModel>)SystemContext.get(CommonConstants.PROJECT_CODE_PROPERTIES);
         MapperFileConfig mapperFile= codeFileCfg.getCommonConfig().getMapperFile();

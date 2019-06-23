@@ -47,7 +47,7 @@ public class DoaminCodeFile extends AbstractCodeFile {
     public void inIntCodeFileData() {
         CodeFileDataFactory codeFileDataFactory = new CodeFileDataFactory();
         this.abstractCodeDatas =codeFileDataFactory.getCodeFileData(CommonConstants.DOMIAN);
-        this.beanModels = (List<AbstractCodeDataModel>)abstractCodeDatas.inIntCodeFileData((List<TableBean>)SystemContext.get(CommonConstants.TABLE_BEANS));
+        this.beanModels = abstractCodeDatas.inIntCodeFileData((List<TableBean>)SystemContext.get(CommonConstants.TABLE_BEANS));
     }
 
 

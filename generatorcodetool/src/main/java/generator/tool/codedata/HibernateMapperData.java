@@ -1,13 +1,14 @@
 package generator.tool.codedata;
 
 import generator.tool.model.TableBean;
+import generator.tool.model.codedata.AbstractCodeDataModel;
 
 import java.util.List;
 
 /**
  * Hibernate映射文件数据
  */
-public class HibernateMapperData implements AbstractCodeData {
+public class HibernateMapperData implements AbstractCodeData< List<AbstractCodeDataModel>> {
 
     /**
      * Default constructor
@@ -15,7 +16,7 @@ public class HibernateMapperData implements AbstractCodeData {
     public HibernateMapperData() {
     }
     @Override
-    public Object inIntCodeFileData(List<TableBean> tableBeans) {
+    public  List<AbstractCodeDataModel> inIntCodeFileData(List<TableBean> tableBeans) {
         return null;
     }
 }

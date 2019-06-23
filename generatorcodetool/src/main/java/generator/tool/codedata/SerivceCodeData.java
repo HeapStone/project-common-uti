@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Service实体数据
  */
-public class SerivceCodeData implements AbstractCodeData {
+public class SerivceCodeData implements AbstractCodeData<List<ServiceCodeDataModel>> {
     List<ServiceCodeDataModel> serviceCodeDataModels =new ArrayList<>();
     /**
      * Default constructor
@@ -24,7 +24,7 @@ public class SerivceCodeData implements AbstractCodeData {
     public SerivceCodeData() {
     }
     @Override
-    public Object inIntCodeFileData(List<TableBean> tableBeans) {
+    public List<ServiceCodeDataModel> inIntCodeFileData(List<TableBean> tableBeans) {
         Map<String, ProjectCodePropertiesModel> projectCodePropertiesModelMap = (Map<String, ProjectCodePropertiesModel>)SystemContext.get(CommonConstants.PROJECT_CODE_PROPERTIES);
         CodeFileCfg codeFileCfg = SystemContext.get(CommonConstants.CODE_FILE_CONFIG, CodeFileCfg.class);
         ServiceCodeConfig serviceCode = codeFileCfg.getCommonConfig().getServiceCode();

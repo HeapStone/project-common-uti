@@ -21,41 +21,42 @@ import java.util.Map;
  * @history: Created by wanglei on  2018/11/4
  */
 public class CommonUtil {
-    public static void generatorCodeFile(List<AbstractCodeDataModel> codeDataModels,String codeFilePath ,
-                                         String codeFileSuffx,String codeTemplateFileName,boolean withImpl,String fileImplTemplateName){
+    public static void generatorCodeFile(List<AbstractCodeDataModel> codeDataModels, String codeFilePath,
+                                         String codeFileSuffx, String codeTemplateFileName, boolean withImpl, String fileImplTemplateName) {
         CodeFileCfg codeFileCfg = SystemContext.get(CommonConstants.CODE_FILE_CONFIG, CodeFileCfg.class);
         CommonConfig tempCommonCfg = codeFileCfg.getCommonConfig();
-        for(AbstractCodeDataModel codeDataModel:codeDataModels){
+        for (AbstractCodeDataModel codeDataModel : codeDataModels) {
             String outPath = codeFilePath;
-            if(StringUtils.isBlank(outPath)){throw new RuntimeException("生成路径不存在，不能生成实文件"); }
-
-            if(StringUtils.isNotBlank((codeDataModel.getPackageNameStr()))){
+            if (StringUtils.isBlank(outPath)) {
+                throw new RuntimeException("生成路径不存在，不能生成实文件");
+            }
+            if (StringUtils.isNotBlank((codeDataModel.getPackageNameStr()))) {
                 //将包名转换成文件路径
                 String packageFilePath = codeDataModel.getPackageNameStr().replace(".", "\\");
                 //代码最终路径
-                outPath = outPath + packageFilePath +"\\";
+                outPath = outPath + packageFilePath + "\\";
             }
             File destFile = new File(outPath);
-            boolean  pathHave  = false;
+            boolean pathHave = false;
             if (!destFile.exists()) {
                 pathHave = destFile.mkdirs();
-            }else{
+            } else {
                 pathHave = true;
             }
-            if(pathHave){
+            if (pathHave) {
                 String templatePath = tempCommonCfg.getTemplatepath();
-                FreemarkUtil ftlu = FreemarkUtil.getInstance(CommonConstants.FREEMARK_VERSION,templatePath);
-                Map<String,Object> dataModel = new HashMap<>();
+                FreemarkUtil ftlu = FreemarkUtil.getInstance(CommonConstants.FREEMARK_VERSION, templatePath);
+                Map<String, Object> dataModel = new HashMap<>();
                 dataModel.put(tempCommonCfg.getFreeMarkParams(), codeDataModel);
-                ftlu.fprintTemplate(dataModel,codeTemplateFileName , outPath, codeDataModel.getFileName()+codeFileSuffx);
-                if(withImpl&&StringUtils.isNotEmpty(fileImplTemplateName)){
+                ftlu.fprintTemplate(dataModel, codeTemplateFileName, outPath, codeDataModel.getFileName() + codeFileSuffx);
+                if (withImpl && StringUtils.isNotEmpty(fileImplTemplateName)) {
                     //生成实现类
                     outPath = outPath + CommonConstants.packageImplName;
                     File destFileimpl = new File(outPath);
                     if (!destFileimpl.exists()) {
                         destFileimpl.mkdirs();
                     }
-                    ftlu.fprintTemplate(dataModel,  fileImplTemplateName , outPath, codeDataModel.getFileName()+"Impl"+codeFileSuffx);
+                    ftlu.fprintTemplate(dataModel, fileImplTemplateName, outPath, codeDataModel.getFileName() + "Impl" + codeFileSuffx);
                 }
             }
         }

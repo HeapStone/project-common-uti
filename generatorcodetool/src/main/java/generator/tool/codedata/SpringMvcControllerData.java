@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * SpringMvc控制层数据
  */
-public class SpringMvcControllerData implements AbstractCodeData {
+public class SpringMvcControllerData implements AbstractCodeData<List<CotrollerCodeDataModel> > {
     List<CotrollerCodeDataModel> cotrollerCodeDatas =new ArrayList<>();
     /**
      * Default constructor
@@ -24,7 +24,7 @@ public class SpringMvcControllerData implements AbstractCodeData {
     public SpringMvcControllerData() {
     }
     @Override
-    public Object inIntCodeFileData(List<TableBean> tableBeans) {
+    public List<CotrollerCodeDataModel>  inIntCodeFileData(List<TableBean> tableBeans) {
         Map<String, ProjectCodePropertiesModel> projectCodePropertiesModelMap = (Map<String, ProjectCodePropertiesModel>)SystemContext.get(CommonConstants.PROJECT_CODE_PROPERTIES);
         CodeFileCfg codeFileCfg = SystemContext.get(CommonConstants.CODE_FILE_CONFIG, CodeFileCfg.class);
         ControllerCodeConfig controllerCodeConfig = codeFileCfg.getCommonConfig().getControllerCode();

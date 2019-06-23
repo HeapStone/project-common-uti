@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Mybatis实体类数据
  */
-public class MybatisDomainData implements AbstractCodeData {
+public class MybatisDomainData implements AbstractCodeData<List<DomainCodeDataModel>> {
    private  List<DomainCodeDataModel> beanModels  = new ArrayList<>();
     /**
      * Default constructor
@@ -28,7 +28,7 @@ public class MybatisDomainData implements AbstractCodeData {
     public MybatisDomainData() {
     }
     @Override
-    public Object inIntCodeFileData(List<TableBean> tableBeans) {
+    public List<DomainCodeDataModel> inIntCodeFileData(List<TableBean> tableBeans) {
         CodeFileCfg codeFileCfg = SystemContext.get(CommonConstants.CODE_FILE_CONFIG, CodeFileCfg.class);
         DomainCodeConfig domainCfg = codeFileCfg.getCommonConfig().getDaominCode();
         String packageNameStr = domainCfg.getPakageName();
