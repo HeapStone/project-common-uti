@@ -1,4 +1,6 @@
 package generator.tool.model;
+import lombok.Data;
+
 import java.util.List;
 
 /**
@@ -9,6 +11,7 @@ import java.util.List;
  * @history:
  * Created by wanglei 2018年1月21日
  */
+@Data
 public class TableBean {
     /**
      * 表名
@@ -30,54 +33,4 @@ public class TableBean {
      * 表主键名
      */
     private String tbalePk;
-    public String getTableName() {
-        return tableName;
-    }
-
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
-
-    public List<TableColumn> getTableColumn() {
-        return tableColumn;
-    }
-
-    public void setTableColumn(List<TableColumn> tableColumn) {
-        this.tableColumn = tableColumn;
-    }
-
-    public String getTableContent() {
-        return tableContent;
-    }
-
-    public void setTableContent(String tableContent) {
-        this.tableContent = tableContent;
-    }
-
-    public String getTableCatalog() {
-        return tableCatalog;
-    }
-
-    public void setTableCatalog(String tableCatalog) {
-        this.tableCatalog = tableCatalog;
-    }
-
-
-    public String getTbalePk() {
-        return tbalePk;
-    }
-
-    public void setTbalePk(String tbalePk) {
-        this.tbalePk = tbalePk;
-    }
-
-    @Override
-    public String toString() {
-        return "TableBean [tableName=" + tableName + ", tableContent="
-                + tableContent + ", tableCatalog=" + tableCatalog
-                + ", tableColumn=" + tableColumn + ", tbalePk=" + tbalePk + "]";
-    }
-
-
-
 }

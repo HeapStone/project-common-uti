@@ -1,8 +1,18 @@
 package generator.tool.model.codedata;
 
+import generator.tool.constants.CommonConstants;
+import generator.tool.factory.SystemContext;
+import generator.tool.model.ProjectCodePropertiesModel;
+import generator.tool.model.TableBean;
 import generator.tool.model.config.CfgProperty;
+import generator.tool.model.config.CodeFileCfg;
+import generator.tool.model.config.MapperFileConfig;
+import generator.tool.util.ColumnToPropertyUtil;
+import lombok.Data;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>Title: </p>
@@ -12,6 +22,7 @@ import java.util.List;
  * @version 1.0
  * @history: Created by wanglei on  2018/8/8
  */
+@Data
 public class MybatisMapperCodeDataModel extends   AbstractCodeDataModel {
     private String cfgClassName;
     private String cfgResultMapID;
@@ -26,129 +37,32 @@ public class MybatisMapperCodeDataModel extends   AbstractCodeDataModel {
     private String insertSqlID;
     private String updateSqlID;
     private List<CfgProperty> cfgPropertys;
-    public String getCfgClassName() {
-        return cfgClassName;
-    }
-
-    public void setCfgClassName(String cfgClassName) {
-        this.cfgClassName = cfgClassName;
-    }
-
-    public String getCfgResultMapID() {
-        return cfgResultMapID;
-    }
-
-    public void setCfgResultMapID(String cfgResultMapID) {
-        this.cfgResultMapID = cfgResultMapID;
-    }
-
-    public String getCfgResultType() {
-        return cfgResultType;
-    }
-
-    public void setCfgResultType(String cfgResultType) {
-        this.cfgResultType = cfgResultType;
-    }
-
-    public String getCfgTablePk() {
-        return cfgTablePk;
-    }
-
-    public void setCfgTablePk(String cfgTablePk) {
-        this.cfgTablePk = cfgTablePk;
-    }
-
-    public String getBeanPkColmn() {
-        return beanPkColmn;
-    }
-
-    public void setBeanPkColmn(String beanPkColmn) {
-        this.beanPkColmn = beanPkColmn;
-    }
-
-    public String getBaseColumn() {
-        return baseColumn;
-    }
-
-    public void setBaseColumn(String baseColumn) {
-        this.baseColumn = baseColumn;
-    }
-
-    public String getCfgTableName() {
-        return cfgTableName;
-    }
-
-    public void setCfgTableName(String cfgTableName) {
-        this.cfgTableName = cfgTableName;
-    }
-
-    public String getSelectListSqlID() {
-        return selectListSqlID;
-    }
-
-    public void setSelectListSqlID(String selectListSqlID) {
-        this.selectListSqlID = selectListSqlID;
-    }
-
-    public String getSelectByPrimaryKeySqlID() {
-        return selectByPrimaryKeySqlID;
-    }
-
-    public void setSelectByPrimaryKeySqlID(String selectByPrimaryKeySqlID) {
-        this.selectByPrimaryKeySqlID = selectByPrimaryKeySqlID;
-    }
-
-    public String getDeleteByPrimaryKeySqlID() {
-        return deleteByPrimaryKeySqlID;
-    }
-
-    public void setDeleteByPrimaryKeySqlID(String deleteByPrimaryKeySqlID) {
-        this.deleteByPrimaryKeySqlID = deleteByPrimaryKeySqlID;
-    }
-
-    public String getInsertSqlID() {
-        return insertSqlID;
-    }
-
-    public void setInsertSqlID(String insertSqlID) {
-        this.insertSqlID = insertSqlID;
-    }
-
-    public String getUpdateSqlID() {
-        return updateSqlID;
-    }
-
-    public void setUpdateSqlID(String updateSqlID) {
-        this.updateSqlID = updateSqlID;
-    }
-
-    public List<CfgProperty> getCfgPropertys() {
-        return cfgPropertys;
-    }
-
-    public void setCfgPropertys(List<CfgProperty> cfgPropertys) {
-        this.cfgPropertys = cfgPropertys;
-    }
-
-    @Override
-    public String toString() {
-        return "MybatisMapperCodeDataModel{" +
-                ", cfgClassName='" + cfgClassName + '\'' +
-                ", cfgResultMapID='" + cfgResultMapID + '\'' +
-                ", cfgResultType='" + cfgResultType + '\'' +
-                ", cfgTablePk='" + cfgTablePk + '\'' +
-                ", beanPkColmn='" + beanPkColmn + '\'' +
-                ", baseColumn='" + baseColumn + '\'' +
-                ", cfgTableName='" + cfgTableName + '\'' +
-                ", selectListSqlID='" + selectListSqlID + '\'' +
-                ", selectByPrimaryKeySqlID='" + selectByPrimaryKeySqlID + '\'' +
-                ", deleteByPrimaryKeySqlID='" + deleteByPrimaryKeySqlID + '\'' +
-                ", insertSqlID='" + insertSqlID + '\'' +
-                ", updateSqlID='" + updateSqlID + '\'' +
-                ", cfgPropertys=" + cfgPropertys +
-                '}';
-    }
-
     public MybatisMapperCodeDataModel() {
+    }
+
+    public MybatisMapperCodeDataModel( Map<String, ProjectCodePropertiesModel> projectCodePropertiesModelMap,
+                                       TableBean table, String beanName) {
+                SystemContext.get(CommonConstants.PROJECT_CODE_PROPERTIES);
+        String tableName = table.getTableName();
+        ProjectCodePropertiesModel resModel =  projectCodePropertiesModelMap.get(tableName);
+        CodeFileCfg codeFileCfg = SystemContext.get(CommonConstants.CODE_FILE_CONFIG, CodeFileCfg.class);
+        MapperFileConfig mapperFile= codeFileCfg.getCommonConfig().getMapperFile();
+        Map<String,Object> benMap =   resModel.getModelBeanPorperties();
+        String fileName = StringUtils.isEmpty(mapperFile.getFileName())?beanName:mapperFile.getFileName();
+        String beanNamePackageStr = benMap.get(CommonConstants.beanNamePackageStr).toString();
+        this.setCfgTableName(table.getTableName());
+        this.setCfgClassName(beanNamePackageStr);
+        this.setCfgTablePk(table.getTbalePk());
+        this.setFileName(fileName);
+        this.setCfgPropertys(cfgPropertys);
+        this.setBeanPkColmn(ColumnToPropertyUtil.camelName(table.getTbalePk()));
+        this.setBaseColumn(baseColumn);
+        this.setUpdateSqlID(CommonConstants.UPDATE_SQL+beanName);
+        this.setInsertSqlID(CommonConstants.INSER_SQL+beanName);
+        this.setDeleteByPrimaryKeySqlID(CommonConstants.DELETE_SQL+beanName+CommonConstants.PRIMARYKEY);
+        this.setSelectByPrimaryKeySqlID(CommonConstants.SELECT_PRI_SUFIX+beanName+CommonConstants.PRIMARYKEY);
+        this.setSelectListSqlID(CommonConstants.SELECT_PRE+beanName+CommonConstants.SELECT_LIST_ED);
+        this.setCfgResultType(beanNamePackageStr);
+        this.setCfgResultMapID(CommonConstants.BASE_RESULT_MAP_IDPRE);
     }
 }

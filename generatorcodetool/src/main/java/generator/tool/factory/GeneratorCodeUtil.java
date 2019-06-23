@@ -68,11 +68,12 @@ public class GeneratorCodeUtil {
     /**
      * 生成代码文件
      */
-    public void genterCodeFile() {
+    public boolean genterCodeFile() {
         this.setCodefiles();
         for (AbstractCodeFile abstractCodeFile : abstractCodeFiles) {
             abstractCodeFile.generatorCodeFile();
         }
+        return true;
     }
 
     /**

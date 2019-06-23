@@ -5,8 +5,7 @@
      <commonConfig projectPath ="D:\otherproject\psmc\src\main\java\"  driver ="com.mysql.jdbc.Driver"
                    url="jdbc:mysql://39.106.36.155:3306/psmc"
                    userName ="admin" password ="admin1234"
-                   templatepath ="D:\javawork\ideaworkspace\java_project\project-common-util\generatorcodetool\bin\template" 
-                   freeMarkParams="freemMarkParams">
+                   templatepath ="D:\javawork\ideaworkspace\java_project\project-common-util\generatorcodetool\src\test\resources\template" freeMarkParams="freemMarkParams">
         <!-- 实体类的配置信息：codeDataClassName对应代码文件获取数据的类；（codeDataClassName暂时不支持修改）
          pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
            <daominCode pakageName="priv.guochun.psmc.website.stage.model" codeDataClassName="generator.tool.codedata.MybatisDomainData" fileTemplateName="mybatisDomain.ftl" fileSuffx=".java" isGenerator="true"/>

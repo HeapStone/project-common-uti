@@ -19,7 +19,6 @@ public class  ${freemMarkParams.fileName} extends MyController{
 
 	@Autowired
 	private ${freemMarkParams.serviceName} ${freemMarkParams.serviceArgName};
-
      /**
 	 * 跳转到${freemMarkParams.fileName}列表页面
 	 * @throws IOException
@@ -28,7 +27,6 @@ public class  ${freemMarkParams.fileName} extends MyController{
 	public String to${freemMarkParams.fileName}List(){
 		return "${freemMarkParams.beanArgName}/${freemMarkParams.beanArgName}List";
 	}
-
 	/**
 	 * ${freemMarkParams.fileName} 分页查询
 	 * @param myPage 分页对象
@@ -68,7 +66,6 @@ public class  ${freemMarkParams.fileName} extends MyController{
         ${freemMarkParams.serviceArgName}.${freemMarkParams.deleteMethodName}(ids);
 		super.responseJson(true, "删除成功!", this.response());
 	}
-
 	/**
 	 * 修改 ${freemMarkParams.fileName} 信息
 	 * @param ${freemMarkParams.beanArgName} ${freemMarkParams.fileName} 信息
@@ -118,5 +115,4 @@ public class  ${freemMarkParams.fileName} extends MyController{
 		}
 		super.responseJson(JsonUtil.convertToJSONObject(${freemMarkParams.beanArgName}), this.response());
 	}
-    
 }

@@ -21,28 +21,24 @@ public interface ${freemMarkParams.serviceName}{
 	 * @return
 	 */
     MyPage ${freemMarkParams.findByPageMethodName}(MyPage page);
-
      /**
 	 * 根据主键查询
 	 * @param uuid 主键
 	 * @return
 	 */
      Map<String,Object> ${freemMarkParams.findByPrimarKeyMethodName}(String uuid);
-
      /**
 	 * 根据主键批量删除
 	 * @param ids 主键列表
 	 * @return
 	 */
      void ${freemMarkParams.deleteByPrimarKeyMethodName}(String ids);
-
      /**
 	 * 新增
 	 * @param ${freemMarkParams.domainArgName} 实体类
 	 * @return
 	 */
      void ${freemMarkParams.addMethodName}(${freemMarkParams.domainName} ${freemMarkParams.domainArgName});
-     
      /**
 	 * 修改
 	 * @param ${freemMarkParams.domainArgName} 实体类

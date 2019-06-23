@@ -1,5 +1,15 @@
 package generator.tool.model.codedata;
 
+import generator.tool.constants.CommonConstants;
+import generator.tool.factory.SystemContext;
+import generator.tool.model.ProjectCodePropertiesModel;
+import generator.tool.model.config.CodeFileCfg;
+import generator.tool.model.config.ControllerCodeConfig;
+import generator.tool.util.ColumnToPropertyUtil;
+import lombok.Data;
+
+import java.util.Map;
+
 /**
  * <p>Title:Controller 的配置数据 </p>
  * <p>Description:</p>
@@ -8,6 +18,7 @@ package generator.tool.model.codedata;
  * @version 1.0
  * @history: Created by wanglei on  2018/8/18
  */
+@Data
 public class CotrollerCodeDataModel extends AbstractCodeDataModel{
     private String importDominPackageStr;
     private String importServicePackageStr;
@@ -21,121 +32,32 @@ public class CotrollerCodeDataModel extends AbstractCodeDataModel{
     private String updateMethodName;
     private String findPrimarkeyMethodName;
     private String findPageMethodName;
+    public CotrollerCodeDataModel(){
 
-
-
-    public String getImportDominPackageStr() {
-        return importDominPackageStr;
     }
-
-    public void setImportDominPackageStr(String importDominPackageStr) {
-        this.importDominPackageStr = importDominPackageStr;
-    }
-
-    public String getImportServicePackageStr() {
-        return importServicePackageStr;
-    }
-
-    public void setImportServicePackageStr(String importServicePackageStr) {
-        this.importServicePackageStr = importServicePackageStr;
-    }
-
-    public String getControllerUrl() {
-        return controllerUrl;
-    }
-
-    public void setControllerUrl(String controllerUrl) {
-        this.controllerUrl = controllerUrl;
-    }
-
-
-    public String getServiceName() {
-        return serviceName;
-    }
-
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
-    }
-
-    public String getServiceArgName() {
-        return serviceArgName;
-    }
-
-    public void setServiceArgName(String serviceArgName) {
-        this.serviceArgName = serviceArgName;
-    }
-
-    public String getBeanName() {
-        return beanName;
-    }
-
-    public void setBeanName(String beanName) {
-        this.beanName = beanName;
-    }
-
-    public String getBeanArgName() {
-        return beanArgName;
-    }
-
-    public void setBeanArgName(String beanArgName) {
-        this.beanArgName = beanArgName;
-    }
-
-    public String getAddMethodName() {
-        return addMethodName;
-    }
-
-    public void setAddMethodName(String addMethodName) {
-        this.addMethodName = addMethodName;
-    }
-
-    public String getDeleteMethodName() {
-        return deleteMethodName;
-    }
-
-    public void setDeleteMethodName(String deleteMethodName) {
-        this.deleteMethodName = deleteMethodName;
-    }
-
-    public String getUpdateMethodName() {
-        return updateMethodName;
-    }
-
-    public void setUpdateMethodName(String updateMethodName) {
-        this.updateMethodName = updateMethodName;
-    }
-
-    public String getFindPrimarkeyMethodName() {
-        return findPrimarkeyMethodName;
-    }
-
-    public void setFindPrimarkeyMethodName(String findPrimarkeyMethodName) {
-        this.findPrimarkeyMethodName = findPrimarkeyMethodName;
-    }
-
-    public String getFindPageMethodName() {
-        return findPageMethodName;
-    }
-
-    public void setFindPageMethodName(String findPageMethodName) {
-        this.findPageMethodName = findPageMethodName;
-    }
-
-    @Override
-    public String toString() {
-        return "CotrollerCodeDataModel{" +
-                ", importDominPackageStr='" + importDominPackageStr + '\'' +
-                ", importServicePackageStr='" + importServicePackageStr + '\'' +
-                ", controllerUrl='" + controllerUrl + '\'' +
-                ", serviceName='" + serviceName + '\'' +
-                ", serviceArgName='" + serviceArgName + '\'' +
-                ", beanName='" + beanName + '\'' +
-                ", beanArgName='" + beanArgName + '\'' +
-                ", addMethodName='" + addMethodName + '\'' +
-                ", deleteMethodName='" + deleteMethodName + '\'' +
-                ", updateMethodName='" + updateMethodName + '\'' +
-                ", findPrimarkeyMethodName='" + findPrimarkeyMethodName + '\'' +
-                ", findPageMethodName='" + findPageMethodName + '\'' +
-                '}';
+    public CotrollerCodeDataModel( String tableName){
+        CodeFileCfg codeFileCfg = SystemContext.get(CommonConstants.CODE_FILE_CONFIG, CodeFileCfg.class);
+        Map<String, ProjectCodePropertiesModel> projectCodePropertiesModelMap = (Map<String, ProjectCodePropertiesModel>)
+                SystemContext.get(CommonConstants.PROJECT_CODE_PROPERTIES);
+        ControllerCodeConfig controllerCodeConfig = codeFileCfg.getCommonConfig().getControllerCode();
+        ProjectCodePropertiesModel projectCodePropertiesModel = projectCodePropertiesModelMap.get(tableName);
+        Map<String,Object> modelBeanPorperties = projectCodePropertiesModel.getModelBeanPorperties();
+        Map<String,Object> servicePorperties = projectCodePropertiesModel.getServicePorperties();
+        String beanName = modelBeanPorperties.get(CommonConstants.beanName).toString();
+        this.setPackageNameStr(controllerCodeConfig.getPakageName());
+        this.setImportDominPackageStr(modelBeanPorperties.get(CommonConstants.beanNamePackageStr).toString());
+        this.setImportServicePackageStr(servicePorperties.get(CommonConstants.servicePackageName).toString());
+        this.setControllerUrl("/website/backstage/"+beanName+"Controller");
+        this.setFileName(beanName+"Controller");
+        String serviceName = servicePorperties.get(CommonConstants.serviceName).toString();
+        this.setServiceName(serviceName);
+        this.setServiceArgName(ColumnToPropertyUtil.toLowerCaseFirstOne(serviceName));
+        this.setBeanName(beanName);
+        this.setBeanArgName(ColumnToPropertyUtil.toLowerCaseFirstOne(beanName));
+        this.setFindPageMethodName(servicePorperties.get(CommonConstants.findPageMethodName).toString());
+        this.setFindPrimarkeyMethodName(servicePorperties.get(CommonConstants.findPrimarkeyMethodName).toString());
+        this.setAddMethodName(servicePorperties.get(CommonConstants.addMethodName).toString());
+        this.setDeleteMethodName(servicePorperties.get(CommonConstants.deleteMethodName).toString());
+        this.setUpdateMethodName(servicePorperties.get(CommonConstants.updateMethodName).toString());
     }
 }

@@ -30,27 +30,23 @@ public class ${freemMarkParams.serviceName}Impl implements ${freemMarkParams.ser
         }
         return baseDao.getMyPage(myPage, daoSelecListSqlID, condition);
       }
-
      @Override
      public Map<String,Object> ${freemMarkParams.findByPrimarKeyMethodName}(String uuid){
        Map<String,Object> condition = new HashMap<String,Object>();
         condition.put( "${freemMarkParams.tabkePkBeanName}", uuid);
         return (Map<String, Object>)baseDao.queryForObject(daoSelecPrimarySqlID,condition);
      }
-
       @Override
      public void ${freemMarkParams.deleteByPrimarKeyMethodName}(String ids){
         Map<String, Object> condition = new HashMap<String, Object>();
         condition.put("ids", ids.split(","));
         baseDao.delete(daoDeletePrimarySqlID, condition);
      }
-
      @Override
      public void ${freemMarkParams.addMethodName}(${freemMarkParams.domainName} ${freemMarkParams.domainArgName} ){
         ${freemMarkParams.domainArgName}.set${freemMarkParams.tabkePkBeanName ?cap_first}(UUIDGenerator.createUUID());
         baseDao.insert(daoInsertSqlID, ${freemMarkParams.domainArgName});
      }
-     
      @Override
      public void ${freemMarkParams.updateMethodName}(${freemMarkParams.domainName} ${freemMarkParams.domainArgName}){
        baseDao.update(daoUpdateSqlID,${freemMarkParams.domainArgName});

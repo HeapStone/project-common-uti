@@ -1,5 +1,7 @@
 package generator.tool.model;
 
+import lombok.Data;
+
 import java.util.Map;
 
 /**
@@ -12,6 +14,7 @@ import java.util.Map;
  * @version 1.0
  * @history: Created by wanglei on  2018/8/12
  */
+@Data
 public class ProjectCodePropertiesModel {
     //实体类相关属性
     private Map<String,Object> modelBeanPorperties;
@@ -25,64 +28,4 @@ public class ProjectCodePropertiesModel {
     private Map<String,Object> mapperPorperties;
     //视图页面属性
     private Map<String,Object> viewPorperties;
-
-    public Map<String, Object> getModelBeanPorperties() {
-        return modelBeanPorperties;
-    }
-
-    public void setModelBeanPorperties(Map<String, Object> modelBeanPorperties) {
-        this.modelBeanPorperties = modelBeanPorperties;
-    }
-
-    public Map<String, Object> getControllerPorperties() {
-        return controllerPorperties;
-    }
-
-    public void setControllerPorperties(Map<String, Object> controllerPorperties) {
-        this.controllerPorperties = controllerPorperties;
-    }
-
-    public Map<String, Object> getServicePorperties() {
-        return servicePorperties;
-    }
-
-    public void setServicePorperties(Map<String, Object> servicePorperties) {
-        this.servicePorperties = servicePorperties;
-    }
-
-    public Map<String, Object> getDaoPorperties() {
-        return daoPorperties;
-    }
-
-    public void setDaoPorperties(Map<String, Object> daoPorperties) {
-        this.daoPorperties = daoPorperties;
-    }
-
-    public Map<String, Object> getMapperPorperties() {
-        return mapperPorperties;
-    }
-
-    public void setMapperPorperties(Map<String, Object> mapperPorperties) {
-        this.mapperPorperties = mapperPorperties;
-    }
-
-    public Map<String, Object> getViewPorperties() {
-        return viewPorperties;
-    }
-
-    public void setViewPorperties(Map<String, Object> viewPorperties) {
-        this.viewPorperties = viewPorperties;
-    }
-
-    @Override
-    public String toString() {
-        return "ProjectCodeModel{" +
-                ", modelBeanPorperties=" + modelBeanPorperties +
-                ", controllerPorperties=" + controllerPorperties +
-                ", servicePorperties=" + servicePorperties +
-                ", daoPorperties=" + daoPorperties +
-                ", mapperPorperties=" + mapperPorperties +
-                ", viewPorperties=" + viewPorperties +
-                '}';
-    }
 }

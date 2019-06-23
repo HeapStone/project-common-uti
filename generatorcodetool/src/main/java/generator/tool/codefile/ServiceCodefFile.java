@@ -1,38 +1,23 @@
 package generator.tool.codefile;
 
-import generator.tool.codedata.AbstractCodeData;
 import generator.tool.constants.CommonConstants;
 import generator.tool.factory.CodeFileDataFactory;
 import generator.tool.factory.SystemContext;
-import generator.tool.model.codedata.AbstractCodeDataModel;
-import generator.tool.model.codedata.ServiceCodeDataModel;
 import generator.tool.model.TableBean;
-import generator.tool.model.config.CodeFileCfg;
-import generator.tool.model.config.CommonConfig;
+import generator.tool.model.codedata.AbstractCodeDataModel;
 import generator.tool.util.CommonUtil;
-import generator.tool.util.FreemarkUtil;
-import org.apache.commons.lang.StringUtils;
+import lombok.Data;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 业务层代码工具对象
  */
+@Data
 public class ServiceCodefFile extends AbstractCodeFile{
     List<AbstractCodeDataModel> abstractCodeDataModels =new ArrayList<>();
     private String fileImplTemplateName;
-
-    public String getFileImplTemplateName() {
-        return fileImplTemplateName;
-    }
-
-    public void setFileImplTemplateName(String fileImplTemplateName) {
-        this.fileImplTemplateName = fileImplTemplateName;
-    }
     /**
      * Default constructor
      */

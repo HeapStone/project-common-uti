@@ -6,6 +6,7 @@ import generator.tool.factory.SystemContext;
 import generator.tool.model.TableBean;
 import generator.tool.model.codedata.AbstractCodeDataModel;
 import generator.tool.util.CommonUtil;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +14,10 @@ import java.util.List;
 /**
  * 控制层代码生成工具
  */
+@Data
 public class ControllerCodeFile extends AbstractCodeFile {
     List<AbstractCodeDataModel> abstractCodeDataModels =new ArrayList<>();
+    private String fileImplTemplateName;
     public ControllerCodeFile(String codeFilePath,
                               String codeFileSuffx, String codeFileName,
                               String codeTemplateFileName, String packageName, String fileName) {
@@ -27,15 +30,7 @@ public class ControllerCodeFile extends AbstractCodeFile {
         this.fileName = fileName;
         inIntCodeFileData();
     }
-    private String fileImplTemplateName;
 
-    public String getFileImplTemplateName() {
-        return fileImplTemplateName;
-    }
-
-    public void setFileImplTemplateName(String fileImplTemplateName) {
-        this.fileImplTemplateName = fileImplTemplateName;
-    }
     /**
      * 默认生成代码文件的方法
      */

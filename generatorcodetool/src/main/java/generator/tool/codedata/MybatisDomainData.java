@@ -30,13 +30,10 @@ public class MybatisDomainData implements AbstractCodeData<List<DomainCodeDataMo
     @Override
     public List<DomainCodeDataModel> inIntCodeFileData(List<TableBean> tableBeans) {
         CodeFileCfg codeFileCfg = SystemContext.get(CommonConstants.CODE_FILE_CONFIG, CodeFileCfg.class);
-        DomainCodeConfig domainCfg = codeFileCfg.getCommonConfig().getDaominCode();
-        String packageNameStr = domainCfg.getPakageName();
         List<TableConfig> tableConfigs = codeFileCfg.getTables();
         if(tableBeans.size()>0){
             for(TableBean table :tableBeans) {
                 //如果指定表格名为空则默认生成全部的属性
-                DomainCodeDataModel beanModel = new DomainCodeDataModel();
                 List<TableColumnNameConfigs> inittableColumns = null;
                 String domainCodeFileName =null;
                 //找到要指定要生成列的数据
@@ -63,41 +60,20 @@ public class MybatisDomainData implements AbstractCodeData<List<DomainCodeDataMo
                         }
                     }
                 }
-                String beanName = StringUtils.isBlank(domainCodeFileName)?ColumnToPropertyUtil.getBeanNameByTableName(table.getTableName()):domainCodeFileName;
-                beanModel.setFileName(beanName);
-                beanModel.setPackageNameStr(packageNameStr);
-                List<DomainPropertiesModel> beanProperties = intJavaProperByTableColumnName(tableColumns);
-                beanModel.setColumns(beanProperties);
-                beanModel.setBeanContent(table.getTableContent());
-                beanModel.setImportStrs(ColumnToPropertyUtil.getImportStrByBeanProperType(beanProperties));
-                TableUtil.setProjectCodePropertiesByTableName(table.getTableName(),CommonConstants.modelBeanPorperties,CommonConstants.beanName,beanName);
-                TableUtil.setProjectCodePropertiesByTableName(table.getTableName(),CommonConstants.modelBeanPorperties,CommonConstants.beanNamePackageStr,packageNameStr+"."+beanName);
-                TableUtil.setProjectCodePropertiesByTableName(table.getTableName(),CommonConstants.modelBeanPorperties,CommonConstants.beanProperties,beanProperties);
+                String beanName = StringUtils.isBlank(domainCodeFileName)?ColumnToPropertyUtil.
+                        getBeanNameByTableName(table.getTableName()):domainCodeFileName;
+                DomainCodeDataModel beanModel = new DomainCodeDataModel(codeFileCfg,table,tableColumns,beanName);
+                TableUtil.setProjectCodePropertiesByTableName(table.getTableName(),
+                        CommonConstants.modelBeanPorperties,CommonConstants.beanName,beanName);
+                TableUtil.setProjectCodePropertiesByTableName(table.getTableName(),
+                        CommonConstants.modelBeanPorperties,
+                        CommonConstants.beanNamePackageStr,beanModel.getPackageNameStr()+"."+beanName);
+                TableUtil.setProjectCodePropertiesByTableName(table.getTableName(),
+                        CommonConstants.modelBeanPorperties,CommonConstants.beanProperties,beanModel.getColumns());
                 beanModels.add(beanModel);
             }
          }
-        return beanModels;
+        return beanModels;e
     }
-    /**
-     * <p>Description:根据列名初始化javabean的实体属性<p>
-     * @param tableColumns 表属性列
-     * @return 实体类属性列表
-     * @author wanglei 2018年1月21日
-     */
-    private static List<DomainPropertiesModel> intJavaProperByTableColumnName(List<TableColumn> tableColumns){
-        List<DomainPropertiesModel> beanPropertieses = new ArrayList<>();
-        if(null!=tableColumns && tableColumns.size()>0){
-            for(TableColumn tableColumn: tableColumns){
-                DomainPropertiesModel beanProperties = new DomainPropertiesModel();
-                String columnName = ColumnToPropertyUtil.camelName(tableColumn.getColumnName());
-                beanProperties.setPropertName(ColumnToPropertyUtil.camelName(columnName));
-                beanProperties.setPropertComment(tableColumn.getColumnRmark());
-                beanProperties.setPropertType(ColumnToPropertyUtil.getBenaPropertiesTypeByTableColumn(tableColumn.getColumnType()));
-                beanProperties.setPropertNameUpCase(StringUtils.capitalize(columnName));
-                beanProperties.setJdbcType(ColumnToPropertyUtil.getJdbcTypeByTableColumn(tableColumn.getColumnType()));
-                beanPropertieses.add(beanProperties);
-            }
-        }
-        return beanPropertieses;
-    }
+
 }

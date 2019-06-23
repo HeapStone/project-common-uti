@@ -1,5 +1,7 @@
 package generator.tool.model.config;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -10,6 +12,7 @@ import java.io.Serializable;
  * @version 1.0
  * @history: Created by wanglei on  2018/7/30
  */
+@Data
 public class CommonConfig implements Serializable {
     private String projectPath;
     private String driver;
@@ -24,127 +27,4 @@ public class CommonConfig implements Serializable {
     private MapperFileConfig mapperFile;
     private ServiceCodeConfig serviceCode;
     private ViewCodeConfig viewCode;
-
-    public String getProjectPath() {
-        return projectPath;
-    }
-
-    public void setProjectPath(String projectPath) {
-        this.projectPath = projectPath;
-    }
-
-    public DomainCodeConfig getDaominCode() {
-        return daominCode;
-    }
-
-    public void setDaominCode(DomainCodeConfig daominCode) {
-        this.daominCode = daominCode;
-    }
-
-    public ControllerCodeConfig getControllerCode() {
-        return controllerCode;
-    }
-
-    public void setControllerCode(ControllerCodeConfig controllerCode) {
-        this.controllerCode = controllerCode;
-    }
-
-    public DaoCodeConfig getDaoDaoCode() {
-        return daoDaoCode;
-    }
-
-    public void setDaoDaoCode(DaoCodeConfig daoDaoCode) {
-        this.daoDaoCode = daoDaoCode;
-    }
-
-    public MapperFileConfig getMapperFile() {
-        return mapperFile;
-    }
-
-    public void setMapperFile(MapperFileConfig mapperFile) {
-        this.mapperFile = mapperFile;
-    }
-
-    public ServiceCodeConfig getServiceCode() {
-        return serviceCode;
-    }
-
-    public void setServiceCode(ServiceCodeConfig serviceCode) {
-        this.serviceCode = serviceCode;
-    }
-
-    public ViewCodeConfig getViewCode() {
-        return viewCode;
-    }
-
-    public void setViewCode(ViewCodeConfig viewCode) {
-        this.viewCode = viewCode;
-    }
-
-    public String getDriver() {
-        return driver;
-    }
-
-    public void setDriver(String driver) {
-        this.driver = driver;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getTemplatepath() {
-        return templatepath;
-    }
-
-    public void setTemplatepath(String templatepath) {
-        this.templatepath = templatepath;
-    }
-
-    public String getFreeMarkParams() {
-        return freeMarkParams;
-    }
-
-    public void setFreeMarkParams(String freeMarkParams) {
-        this.freeMarkParams = freeMarkParams;
-    }
-
-    @Override
-    public String toString() {
-        return "CommonConfig{" +
-                "projectPath='" + projectPath + '\'' +
-                ", driver='" + driver + '\'' +
-                ", url='" + url + '\'' +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", templatepath='" + templatepath + '\'' +
-                ", freeMarkParams='" + freeMarkParams + '\'' +
-                ", daominCode=" + daominCode +
-                ", controllerCode=" + controllerCode +
-                ", daoDaoCode=" + daoDaoCode +
-                ", mapperFile=" + mapperFile +
-                ", serviceCode=" + serviceCode +
-                ", viewCode=" + viewCode +
-                '}';
-    }
 }

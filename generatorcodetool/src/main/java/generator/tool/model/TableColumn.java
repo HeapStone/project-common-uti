@@ -1,5 +1,7 @@
 package generator.tool.model;
 
+import lombok.Data;
+
 /**
  * <p>Title:数据库表属性实体类 </p>
  * <p>Description: 数据库表属性实体类</p>
@@ -8,6 +10,7 @@ package generator.tool.model;
  * @history:
  * Created by wanglei 2018年1月21日
  */
+@Data
 public class TableColumn {
 	/**
 	 * 属性名
@@ -33,51 +36,6 @@ public class TableColumn {
 	 * 是否为空
 	 */
 	private int ColumnIsnull;
-	public String getColumnName() {
-		return ColumnName;
-	}
-	public void setColumnName(String columnName) {
-		ColumnName = columnName;
-	}
-	public String getColumnType() {
-		return ColumnType;
-	}
-	public void setColumnType(String columnType) {
-		ColumnType = columnType;
-	}
-	public int getColumnSize() {
-		return ColumnSize;
-	}
-	public void setColumnSize(int columnSize) {
-		ColumnSize = columnSize;
-	}
-	public String getColumnRmark() {
-		return ColumnRmark;
-	}
-	public void setColumnRmark(String columnRmark) {
-		ColumnRmark = columnRmark;
-	}
-	public int getColumnDecimalDigits() {
-		return ColumnDecimalDigits;
-	}
-	public void setColumnDecimalDigits(int columnDecimalDigits) {
-		ColumnDecimalDigits = columnDecimalDigits;
-	}
-	
-	public int getColumnIsnull() {
-		return ColumnIsnull;
-	}
-	public void setColumnIsnull(int columnIsnull) {
-		ColumnIsnull = columnIsnull;
-	}
-	
-	@Override
-	public String toString() {
-		return "TableColumn [ColumnName=" + ColumnName + ", ColumnType="
-				+ ColumnType + ", ColumnSize=" + ColumnSize + ", ColumnRmark="
-				+ ColumnRmark + ", ColumnDecimalDigits=" + ColumnDecimalDigits
-				+ ", ColumnIsnull=" + ColumnIsnull + "]";
-	}
 	public TableColumn() {
 		super();
 	}

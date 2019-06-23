@@ -1,5 +1,7 @@
 package generator.tool.model.config;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,33 +13,11 @@ import java.util.List;
  * @version 1.0
  * @history: Created by wanglei on  2018/7/29
  */
+@Data
 public class CodeFileCfg implements Serializable {
     //公共配置信息
     private CommonConfig commonConfig;
     //生成数据表配置信息
     private List<TableConfig> tables;
 
-    public CommonConfig getCommonConfig() {
-        return commonConfig;
-    }
-
-    public void setCommonConfig(CommonConfig commonConfig) {
-        this.commonConfig = commonConfig;
-    }
-
-    public List<TableConfig> getTables() {
-        return tables;
-    }
-
-    public void setTables(List<TableConfig> tables) {
-        this.tables = tables;
-    }
-
-    @Override
-    public String toString() {
-        return "CodeFileCfg{" +
-                "commonConfig=" + commonConfig +
-                ",\n tables=" + tables +
-                '}'+"\n";
-    }
 }

@@ -1,5 +1,7 @@
 package generator.tool.model.config;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -10,6 +12,7 @@ import java.io.Serializable;
  * @version 1.0
  * @history: Created by wanglei on  2018/7/30
  */
+@Data
 public class BaseCodeConfig implements Serializable {
     //包名
     private String pakageName;
@@ -27,83 +30,5 @@ public class BaseCodeConfig implements Serializable {
     private String codeDataClassName;
 
     public BaseCodeConfig() {
-    }
-
-
-    public String getPakageName() {
-        return pakageName;
-    }
-
-    public void setPakageName(String pakageName) {
-        this.pakageName = pakageName;
-    }
-
-    public String getFileTemplateName() {
-        return fileTemplateName;
-    }
-
-    public void setFileTemplateName(String fileTemplateName) {
-        this.fileTemplateName = fileTemplateName;
-    }
-
-    public String getFileSuffx() {
-        return fileSuffx;
-    }
-
-    public void setFileSuffx(String fileSuffx) {
-        this.fileSuffx = fileSuffx;
-    }
-
-    public Boolean getIsGenerator() {
-        return isGenerator;
-    }
-
-    public void setIsGenerator(Boolean isGenerator) {
-        this.isGenerator = isGenerator;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
-    public Boolean getGenerator() {
-        return isGenerator;
-    }
-
-    public void setGenerator(Boolean generator) {
-        isGenerator = generator;
-    }
-
-    public String getCodeDataClassName() {
-        return codeDataClassName;
-    }
-
-    public void setCodeDataClassName(String codeDataClassName) {
-        this.codeDataClassName = codeDataClassName;
-    }
-
-    @Override
-    public String toString() {
-        return "BaseCodeConfig{" +
-                ", pakageName='" + pakageName + '\'' +
-                ", fileTemplateName='" + fileTemplateName + '\'' +
-                ", fileSuffx='" + fileSuffx + '\'' +
-                ", isGenerator=" + isGenerator +
-                ", fileName='" + fileName + '\'' +
-                ", filePath='" + filePath + '\'' +
-                ", codeDataClassName='" + codeDataClassName + '\'' +
-                '}';
     }
 }

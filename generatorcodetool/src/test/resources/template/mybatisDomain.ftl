@@ -25,7 +25,6 @@ public class ${freemMarkParams.fileName} implements Serializable{
      */
     </#if>
     private ${_column.propertType} ${_column.propertName};
-    
 </#list>
 <#list freemMarkParams.columns as _column>
 
@@ -38,11 +37,9 @@ public class ${freemMarkParams.fileName} implements Serializable{
     }
 </#list>
 <#--¹¹Ôìº¯Êý-->
-
     public ${freemMarkParams.fileName}(){
      	super();
 	}
-
 	@Override
 	public String toString() {
 		return "${freemMarkParams.fileName} ["+""
@@ -51,5 +48,4 @@ public class ${freemMarkParams.fileName} implements Serializable{
 </#list>
 		  + "]";
 	}
-
 }

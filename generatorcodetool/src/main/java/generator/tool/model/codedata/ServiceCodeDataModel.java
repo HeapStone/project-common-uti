@@ -1,5 +1,11 @@
 package generator.tool.model.codedata;
 
+import generator.tool.constants.CommonConstants;
+import generator.tool.model.ProjectCodePropertiesModel;
+import lombok.Data;
+
+import java.util.Map;
+
 /**
  * <p>Title: </p>
  * <p>Description:</p>
@@ -8,6 +14,7 @@ package generator.tool.model.codedata;
  * @version 1.0
  * @history: Created by wanglei on  2018/8/14
  */
+@Data
 public class ServiceCodeDataModel  extends AbstractCodeDataModel{
     private String tableName;
     private String importDominPackageStr;
@@ -31,177 +38,33 @@ public class ServiceCodeDataModel  extends AbstractCodeDataModel{
     public String getTableName() {
         return tableName;
     }
+    public ServiceCodeDataModel(){
 
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
     }
-
-    public String getImportDominPackageStr() {
-        return importDominPackageStr;
-    }
-
-    public void setImportDominPackageStr(String importDominPackageStr) {
-        this.importDominPackageStr = importDominPackageStr;
-    }
-
-    public String getBeanContent() {
-        return beanContent;
-    }
-
-    public void setBeanContent(String beanContent) {
-        this.beanContent = beanContent;
-    }
-
-    public String getServiceName() {
-        return serviceName;
-    }
-
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
-    }
-
-    public String getFindByPageMethodName() {
-        return findByPageMethodName;
-    }
-
-    public void setFindByPageMethodName(String findByPageMethodName) {
-        this.findByPageMethodName = findByPageMethodName;
-    }
-
-    public String getFindByPrimarKeyMethodName() {
-        return findByPrimarKeyMethodName;
-    }
-
-    public void setFindByPrimarKeyMethodName(String findByPrimarKeyMethodName) {
-        this.findByPrimarKeyMethodName = findByPrimarKeyMethodName;
-    }
-
-    public String getDeleteByPrimarKeyMethodName() {
-        return deleteByPrimarKeyMethodName;
-    }
-
-    public void setDeleteByPrimarKeyMethodName(String deleteByPrimarKeyMethodName) {
-        this.deleteByPrimarKeyMethodName = deleteByPrimarKeyMethodName;
-    }
-
-    public String getAddMethodName() {
-        return addMethodName;
-    }
-
-    public void setAddMethodName(String addMethodName) {
-        this.addMethodName = addMethodName;
-    }
-
-    public String getDomainName() {
-        return domainName;
-    }
-
-    public void setDomainName(String domainName) {
-        this.domainName = domainName;
-    }
-
-    public String getDomainArgName() {
-        return domainArgName;
-    }
-
-    public void setDomainArgName(String domainArgName) {
-        this.domainArgName = domainArgName;
-    }
-
-    public String getUpdateMethodName() {
-        return updateMethodName;
-    }
-
-    public void setUpdateMethodName(String updateMethodName) {
-        this.updateMethodName = updateMethodName;
-    }
-
-    public String getImportServicePackageStr() {
-        return importServicePackageStr;
-    }
-
-    public void setImportServicePackageStr(String importServicePackageStr) {
-        this.importServicePackageStr = importServicePackageStr;
-    }
-
-    public String getDaoSelecListSqlID() {
-        return daoSelecListSqlID;
-    }
-
-    public void setDaoSelecListSqlID(String daoSelecListSqlID) {
-        this.daoSelecListSqlID = daoSelecListSqlID;
-    }
-
-    public String getDaoSelecPrimarySqlID() {
-        return daoSelecPrimarySqlID;
-    }
-
-    public void setDaoSelecPrimarySqlID(String daoSelecPrimarySqlID) {
-        this.daoSelecPrimarySqlID = daoSelecPrimarySqlID;
-    }
-
-    public String getDaoDeletePrimarySqlID() {
-        return daoDeletePrimarySqlID;
-    }
-
-    public void setDaoDeletePrimarySqlID(String daoDeletePrimarySqlID) {
-        this.daoDeletePrimarySqlID = daoDeletePrimarySqlID;
-    }
-
-    public String getDaoInsertSqlID() {
-        return daoInsertSqlID;
-    }
-
-    public void setDaoInsertSqlID(String daoInsertSqlID) {
-        this.daoInsertSqlID = daoInsertSqlID;
-    }
-
-    public String getDaoUpdateSqlID() {
-        return daoUpdateSqlID;
-    }
-
-    public void setDaoUpdateSqlID(String daoUpdateSqlID) {
-        this.daoUpdateSqlID = daoUpdateSqlID;
-    }
-
-    public String getTabkePkBeanName() {
-        return tabkePkBeanName;
-    }
-
-    public void setTabkePkBeanName(String tabkePkBeanName) {
-        this.tabkePkBeanName = tabkePkBeanName;
-    }
-
-    public String getIpmlPackageStr() {
-        return ipmlPackageStr;
-    }
-
-    public void setIpmlPackageStr(String ipmlPackageStr) {
-        this.ipmlPackageStr = ipmlPackageStr;
-    }
-
-    @Override
-    public String toString() {
-        return "ServiceCodeDataModel{" +
-                "tableName='" + tableName + '\'' +
-                ", importDominPackageStr='" + importDominPackageStr + '\'' +
-                ", beanContent='" + beanContent + '\'' +
-                ", serviceName='" + serviceName + '\'' +
-                ", findByPageMethodName='" + findByPageMethodName + '\'' +
-                ", findByPrimarKeyMethodName='" + findByPrimarKeyMethodName + '\'' +
-                ", deleteByPrimarKeyMethodName='" + deleteByPrimarKeyMethodName + '\'' +
-                ", addMethodName='" + addMethodName + '\'' +
-                ", domainName='" + domainName + '\'' +
-                ", domainArgName='" + domainArgName + '\'' +
-                ", updateMethodName='" + updateMethodName + '\'' +
-                ", importServicePackageStr='" + importServicePackageStr + '\'' +
-                ", daoSelecListSqlID='" + daoSelecListSqlID + '\'' +
-                ", daoSelecPrimarySqlID='" + daoSelecPrimarySqlID + '\'' +
-                ", daoDeletePrimarySqlID='" + daoDeletePrimarySqlID + '\'' +
-                ", daoInsertSqlID='" + daoInsertSqlID + '\'' +
-                ", daoUpdateSqlID='" + daoUpdateSqlID + '\'' +
-                ", tabkePkBeanName='" + tabkePkBeanName + '\'' +
-                ", ipmlPackageStr='" + ipmlPackageStr + '\'' +
-                '}';
+    public ServiceCodeDataModel(ProjectCodePropertiesModel projectCodePropertiesModel,String pakageName,String tableName){
+        Map<String,Object> modelBeanPorperties = projectCodePropertiesModel.getModelBeanPorperties();
+        Map<String,Object> mapperPorperties = projectCodePropertiesModel.getMapperPorperties();
+        this.setTabkePkBeanName(mapperPorperties.get(CommonConstants.tablePkBenanName).toString());
+        String beanName = modelBeanPorperties.get(CommonConstants.beanName).toString();
+        this.setServiceName(beanName+"Service");
+        this.setFileName(beanName+"Service");
+        this.setDomainName(beanName);
+        this.setBeanContent(beanName+"service接口");
+        this.setAddMethodName("add"+beanName);
+        this.setDeleteByPrimarKeyMethodName("deleteBy"+beanName+"primaryKeys");
+        this.setUpdateMethodName("update"+beanName);
+        this.setFindByPrimarKeyMethodName("findBy"+beanName+"primaryKey");
+        this.setFindByPageMethodName("findBy"+beanName+"Page");
+        this.setDomainArgName(beanName.substring(0, 1).toLowerCase()+beanName.substring(1, beanName.length()));
+        this.setImportServicePackageStr(pakageName+"."+beanName);
+        this.setPackageNameStr(pakageName);
+        this.setIpmlPackageStr(pakageName+".impl");
+        this.setImportDominPackageStr(modelBeanPorperties.get(CommonConstants.beanNamePackageStr).toString());
+        this.setDaoInsertSqlID((mapperPorperties.get(CommonConstants.daoInsertSqlID).toString()));
+        this.setDaoDeletePrimarySqlID((mapperPorperties.get(CommonConstants.daoDeletePrimarySqlID).toString()));
+        this.setDaoUpdateSqlID((mapperPorperties.get(CommonConstants.daoUpdateSqlID).toString()));
+        this.setDaoSelecPrimarySqlID((mapperPorperties.get(CommonConstants.daoSelecPrimarySqlID).toString()));
+        this.setDaoSelecListSqlID((mapperPorperties.get(CommonConstants.daoSelecListSqlID).toString()));
+        this.setTableName(tableName);
     }
 }
