@@ -20,8 +20,6 @@ public class BaseCodeConfig implements Serializable {
     private String fileTemplateName;
     //文件后缀
     private String fileSuffx;
-    //是否生成
-    private Boolean isGenerator;
     //文件名
     private String fileName;
     //文件路径

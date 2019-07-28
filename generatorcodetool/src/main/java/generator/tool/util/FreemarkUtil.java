@@ -115,7 +115,7 @@ public class FreemarkUtil {
 	 */
 	public void fprintTemplate(Map<String,Object> dataModel,String templateName,String filePath,String fileName){
 		if(null == fileName || "".equals(fileName)){
-			System.out.println("文件名为空无法输出！");
+			logger.error("文件名为空无法输出！");
 			return;
 		}
 		try {

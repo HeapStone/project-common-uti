@@ -101,7 +101,6 @@ public class  ${freemMarkParams.fileName} extends MyController{
 		return "backstage/${freemMarkParams.beanArgName}/${freemMarkParams.beanArgName}Edit";
 	}
 
-
 	/**
 	 * ${freemMarkParams.fileName}详情查询
 	 * @param id ${freemMarkParams.fileName}主键

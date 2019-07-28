@@ -1,9 +1,7 @@
 package generator.tool.factory;
 
-import freemarker.template.utility.CollectionUtils;
 import generator.tool.codefile.AbstractCodeFile;
 import generator.tool.constants.CommonConstants;
-import generator.tool.model.ProjectCodePropertiesModel;
 import generator.tool.model.TableBean;
 import generator.tool.model.config.*;
 import generator.tool.util.*;
@@ -22,6 +20,7 @@ import java.util.stream.Collectors;
  * 2、获取要生成代码文件的类型
  * 3、根据代码对象信息生成代码
  */
+@SuppressWarnings("unchecked")
 public class GeneratorCodeUtil {
     private final static Logger logger = LoggerFactory.getLogger(GeneratorCodeUtil.class.getName());
 
@@ -44,6 +43,7 @@ public class GeneratorCodeUtil {
         if(StringUtils.isEmpty(configFileSrc)){
             throw new RuntimeException("配置文件路径不能为空!");
         }
+        long beginTime = System.currentTimeMillis();
         logger.info("------------------------系统初始化-----------------------------");
         //获取配置信息
         Document document = ReadXmlUtils.getXMLByFilePath(configFileSrc);
@@ -51,28 +51,33 @@ public class GeneratorCodeUtil {
         CodeFileCfg codeFileCfg = (CodeFileCfg) JsonHelper.toJavaBean(CodeFileCfg.class, configStr);
         checkCodeFileConfig(codeFileCfg);
         //将配置信息存储
-        logger.info("------------------------获取配置信息信息-----------------------------");
+        long getConfigTime = System.currentTimeMillis();
+        logger.info("获取配置信息信息耗时["+(getConfigTime-beginTime)+"]毫秒");
         SystemContext.set(CommonConstants.CODE_FILE_CONFIG, codeFileCfg);
         //初始化数据库表信息
         TableUtil tableUtil = TableUtil.getTableBeanUtilInstance();
         SystemContext.set(CommonConstants.TABLE_BEANS, tableUtil.tableBeans);
+        long  getTableendTime = System.currentTimeMillis();
+        logger.info("获取数据库表耗时["+(getTableendTime-getConfigTime)+"]毫秒");
         //把要生成代码的表名放到缓存里
         getTableBenasByConfig();
         //初始化生成项目公共属性 key:表名，value 其他属性
-        Map<String, ProjectCodePropertiesModel> projectCodePropertiesModels = new HashMap<>();
+        Map<String, Object> projectCodePropertiesModels = new HashMap<>();
         SystemContext.set(CommonConstants.PROJECT_CODE_PROPERTIES, projectCodePropertiesModels);
-        logger.info("------------------------系统初始化结束-----------------------------");
-
+        long endTime = System.currentTimeMillis();
+        logger.info("系统初始化结束耗时["+(endTime-beginTime)+"]毫秒");
     }
 
     /**
      * 生成代码文件
      */
     public boolean genterCodeFile() {
+        List<TableBean> tables = (List<TableBean>)SystemContext.get(CommonConstants.TABLE_BEANS);
         this.setCodefiles();
         for (AbstractCodeFile abstractCodeFile : abstractCodeFiles) {
             abstractCodeFile.generatorCodeFile();
         }
+        logger.info("生成["+tables.size()+"张表的代码]");
         return true;
     }
 

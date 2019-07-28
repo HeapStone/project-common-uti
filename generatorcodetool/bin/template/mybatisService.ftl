@@ -3,19 +3,21 @@ package ${freemMarkParams.packageNameStr};
 import java.util.Map;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import ${freemMarkParams.importDominPackageStr};
-/**
-** 注意这是spring注入配置文件，请复制到注入配置文件后删除
-**	<bean id="${freemMarkParams.serviceName ?uncap_first}" class="${freemMarkParams.packageNameStr}.impl.${freemMarkParams.serviceName}Impl" />
-**
-**/
+
+ /** 注意这是spring注入配置文件，请复制到注入配置文件后删除
+  *
+  *    <bean id="${freemMarkParams.serviceName ?uncap_first}"
+  *    class="${freemMarkParams.packageNameStr}.impl.${freemMarkParams.serviceName}Impl"/>
+  */
+<#--注释-->
 <#if freemMarkParams.beanContent!="">
-    /*
+    /**
      *${freemMarkParams.beanContent}
      * Created by System
      */
 </#if>
 public interface ${freemMarkParams.serviceName}{
-   /**
+    /**
 	 * 分页查询
 	 * @param page 分页对象
 	 * @return
@@ -27,7 +29,8 @@ public interface ${freemMarkParams.serviceName}{
 	 * @param uuid 主键
 	 * @return
 	 */
-     Map<String,Object> ${freemMarkParams.findByPrimarKeyMethodName}(String uuid);
+     Map
+    <String,Object> ${freemMarkParams.findByPrimarKeyMethodName}(String uuid);
 
      /**
 	 * 根据主键批量删除

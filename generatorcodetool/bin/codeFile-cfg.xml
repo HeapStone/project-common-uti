@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <codefileConfig>
     <!-- 公共代码的配置信息 不可缺省 -->
-    <!--项目路径--><!--数据库驱动--><!--数据库路径--><!--用户名--><!--密码--><!--模板路径--> <!--freemMarkParams：模板参数-->
-     <commonConfig projectPath ="D:\otherproject\psmc\src\main\java\"  driver ="com.mysql.jdbc.Driver"
-                   url="jdbc:mysql://39.106.36.155:3306/psmc"
-                   userName ="admin" password ="admin1234"
-                   templatepath ="D:\javawork\ideaworkspace\java_project\project-common-util\generatorcodetool\bin\template" 
-                   freeMarkParams="freemMarkParams">
+    <!--项目路径--><!--数据库驱动--><!--数据库路径--><!--用户名--><!--密码--><!--模板路径--> <!--freemMarkParams：模板参数名称-->
+    <commonConfig projectPath ="D:\otherproject\psmc\src\main\java\"  driver ="com.mysql.jdbc.Driver"
+                  url="jdbc:mysql://39.106.36.155:3306/psmc"
+                  userName ="admin" password ="admin1234"
+                  templatepath ="D:\javawork\ideaworkspace\java_project\project-common-util\generatorcodetool\src\test\resources\template" freeMarkParams="freemMarkParams">
         <!-- 实体类的配置信息：codeDataClassName对应代码文件获取数据的类；（codeDataClassName暂时不支持修改）
          pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
-           <daominCode pakageName="priv.guochun.psmc.website.stage.model" codeDataClassName="generator.tool.codedata.MybatisDomainData" fileTemplateName="mybatisDomain.ftl" fileSuffx=".java" isGenerator="true"/>
-           <!-- 控制层的配置信息：codeDataClassName对应代码文件获取数据的类；
-         pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
-           <controllerCode pakageName="priv.guochun.psmc.website.stage.controller" codeDataClassName="generator.tool.codedata.SpringMvcControllerData" fileTemplateName="springMvcController.ftl" fileSuffx=".java" isGenerator="true"/>
-            <!-- dao的配置信息：codeDataClassName对应代码文件获取数据的类；
-         pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
-           <daoDaoCode pakageName="com.test.dao" fileTemplateName="mybatisDao.ftl" codeDataClassName="generator.tool.codedata.DaoCodeData" fileImplTemplateName="mybatisServiceImpl.ftl" fileSuffx=".java" isGenerator="false"/>
-           <!-- service的配置信息：codeDataClassName对应代码文件获取数据的类；
-         pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
-           <serviceCode pakageName="priv.guochun.psmc.website.stage.service" codeDataClassName="generator.tool.codedata.SerivceCodeData" fileTemplateName="mybatisService.ftl" fileImplTemplateName="mybatisServiceImpl.ftl" fileSuffx=".java" isGenerator="true" />
-           <!--页面文件的配置信息：codeDataClassName对应代码文件获取数据的类；
-         pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
-           <viewCode filePath="/jsp/" fileTemplateName="jspTemplate.ftl" codeDataClassName="generator.tool.codedata.JspData" fileSuffx=".jsp" isGenerator="false" />
-            <!-- 映射文件的配置信息：codeDataClassName对应代码文件获取数据的类；
-         pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
-           <mapperFile filePath="/priv/guochun/psmc/website/stage/model/mapper/" codeDataClassName="generator.tool.codedata.MybatisMapperData" fileTemplateName="mybatis-Mapper.ftl" fileSuffx=".mapper.xml" isGenerator="true"/>
+        <daominCode pakageName="priv.guochun.psmc.website.stage.model" codeDataClassName="generator.tool.pmsc.codedata.PsmcDomainData" fileTemplateName="mybatisDomain.ftl" fileSuffx=".java" />
+        <!-- 控制层的配置信息：codeDataClassName对应代码文件获取数据的类；
+      pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
+        <controllerCode pakageName="priv.guochun.psmc.website.stage.controller" codeDataClassName="generator.tool.pmsc.codedata.PsmcControllerData" fileTemplateName="springMvcController.ftl" fileSuffx=".java" />
+        <!-- dao的配置信息：codeDataClassName对应代码文件获取数据的类；
+     pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
+        <daoDaoCode pakageName="com.test.dao" fileTemplateName="mybatisDao.ftl" codeDataClassName="generator.tool.pmsc.codedata.PsmcDaoCodeData" fileImplTemplateName="mybatisServiceImpl.ftl" fileSuffx=".java"/>
+        <!-- service的配置信息：codeDataClassName对应代码文件获取数据的类；
+      pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
+        <serviceCode pakageName="priv.guochun.psmc.website.stage.service" codeDataClassName="generator.tool.pmsc.codedata.PsmcSerivceCodeData" fileTemplateName="mybatisService.ftl" fileImplTemplateName="mybatisServiceImpl.ftl" fileSuffx=".java" />
+        <!--页面文件的配置信息：codeDataClassName对应代码文件获取数据的类；
+      pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
+        <viewCode filePath="/jsp/" fileTemplateName="jspTemplate.ftl" codeDataClassName="generator.tool.codedata.JspData" fileSuffx=".jsp"  />
+        <!-- 映射文件的配置信息：codeDataClassName对应代码文件获取数据的类；
+     pakageName对应包名；fileTemplatePath对应模板路径；fileName对应文件名称-->
+        <mapperFile filePath="/priv/guochun/psmc/website/stage/model/mapper/" codeDataClassName="generator.tool.pmsc.codedata.PsmcMapperData" fileTemplateName="mybatis-Mapper.ftl" fileSuffx=".mapper.xml" />
     </commonConfig>
     <!-- 配置文件说明：
           tables按照指定的数据表生成代码，可以指定要生成代码的表，动态配置要生成代码文件的信息，
@@ -32,7 +31,7 @@
           controllerCodeFileName：controller名称 serviceCodeFileName：service名称 mapperCodeFileName：实体类映射问件名称
           daoCodeFileName：dao名称 viewCodeFileName：页面名称
      -->
-     <tables>
+    <tables>
         <!-- 单个表对应生成代码的配置 可缺省，如果缺省按照公共配置生成所有表-->
         <table tableName="tab_report" domainCodeFileName="Report" controllerCodeFileName=""
                serviceCodeFileName="" mapperCodeFileName="" daoCodeFileName="" viewCodeFileName="">
@@ -46,18 +45,18 @@
                 <tbaleColumn domainColunmName="" tableColunmName=""/>
             </tbaleColumns>
         </table>
-         <!--&lt;!&ndash; 单个表对应生成代码的配置 可缺省，如果缺省按照公共配置生成所有表&ndash;&gt;-->
-         <!--<table tableName="tb_house" domainCodeFileName="House" controllerCodeFileName=""-->
-                <!--serviceCodeFileName="" mapperCodeFileName="" daoCodeFileName="" viewCodeFileName="">-->
-             <!--&lt;!&ndash; 每个表属性类配置&ndash;&gt;-->
-             <!--<tbaleColumns>-->
-                 <!--<tbaleColumn domainColunmName="" tableColunmName=""/>-->
-                 <!--<tbaleColumn domainColunmName="" tableColunmName=""/>-->
-                 <!--<tbaleColumn domainColunmName="" tableColunmName=""/>-->
-                 <!--<tbaleColumn domainColunmName="" tableColunmName=""/>-->
-                 <!--<tbaleColumn domainColunmName="" tableColunmName=""/>-->
-             <!--</tbaleColumns>-->
-         <!--</table>-->
+        <!--&lt;!&ndash; 单个表对应生成代码的配置 可缺省，如果缺省按照公共配置生成所有表&ndash;&gt;-->
+        <!--<table tableName="tb_house" domainCodeFileName="House" controllerCodeFileName=""-->
+        <!--serviceCodeFileName="" mapperCodeFileName="" daoCodeFileName="" viewCodeFileName="">-->
+        <!--&lt;!&ndash; 每个表属性类配置&ndash;&gt;-->
+        <!--<tbaleColumns>-->
+        <!--<tbaleColumn domainColunmName="" tableColunmName=""/>-->
+        <!--<tbaleColumn domainColunmName="" tableColunmName=""/>-->
+        <!--<tbaleColumn domainColunmName="" tableColunmName=""/>-->
+        <!--<tbaleColumn domainColunmName="" tableColunmName=""/>-->
+        <!--<tbaleColumn domainColunmName="" tableColunmName=""/>-->
+        <!--</tbaleColumns>-->
+        <!--</table>-->
 
     </tables>
 </codefileConfig>

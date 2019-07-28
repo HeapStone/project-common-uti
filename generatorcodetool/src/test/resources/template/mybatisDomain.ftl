@@ -1,14 +1,15 @@
 package ${freemMarkParams.packageNameStr};
 import java.io.Serializable;
-<#--µ¼°ü -->
+<#--å¯¼å…¥ä¾èµ–åŒ…-->
 <#list freemMarkParams.importStrs as importStr>
 import ${importStr};
 </#list>
+
 <#if freemMarkParams.beanContent!="">
-    /*
-     *${freemMarkParams.beanContent}
-     *
-     */
+/*
+ *${freemMarkParams.beanContent}
+ *
+ */
 </#if>
 public class ${freemMarkParams.fileName} implements Serializable{
     /**
@@ -16,16 +17,15 @@ public class ${freemMarkParams.fileName} implements Serializable{
 	 */
  private static final long serialVersionUID = 1L;
 
-<#--ÊôÐÔÉú³É -->
+<#--å±žæ€§ä¿¡æ¯ -->
 <#list freemMarkParams.columns as _column>
     <#if _column.propertComment!="">
-    /**
-     *${_column.propertComment}
-     *
-     */
+     // ${_column.propertComment}
     </#if>
     private ${_column.propertType} ${_column.propertName};
+
 </#list>
+<#--get set æ–¹æ³•-->
 <#list freemMarkParams.columns as _column>
 
     public ${_column.propertType} get${_column.propertNameUpCase}(){
@@ -36,10 +36,12 @@ public class ${freemMarkParams.fileName} implements Serializable{
         this.${_column.propertName} = ${_column.propertName}s;
     }
 </#list>
-<#--¹¹Ôìº¯Êý-->
+<#--æž„é€ å‡½æ•°-->
+
     public ${freemMarkParams.fileName}(){
      	super();
 	}
+<#--toString æ–¹æ³•-->
 	@Override
 	public String toString() {
 		return "${freemMarkParams.fileName} ["+""
@@ -48,4 +50,5 @@ public class ${freemMarkParams.fileName} implements Serializable{
 </#list>
 		  + "]";
 	}
+
 }
